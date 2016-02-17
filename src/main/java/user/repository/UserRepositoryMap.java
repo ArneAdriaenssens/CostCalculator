@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class UserRepositoryMap implements UserRepository{
 
-    private Map<String, User> users;
+    private static Map<String, User> users;
 
     public UserRepositoryMap(){
         users=new HashMap<String, User>();

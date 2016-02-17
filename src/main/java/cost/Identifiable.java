@@ -11,6 +11,8 @@ public class Identifiable {
         setId(id);
     }
 
+    public Identifiable() {}
+
     public long getId() {
         return id;
     }

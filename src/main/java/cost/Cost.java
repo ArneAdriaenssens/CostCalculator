@@ -5,7 +5,7 @@ import user.User;
 /**
  * Created by Arne on 11/02/2016.
  */
-public class Cost {
+public class Cost extends Identifiable{
 
     private double price;
     private Category category;
@@ -13,6 +13,7 @@ public class Cost {
     private String location;
 
     public Cost(double price, Category category, User user, String location) throws IllegalArgumentException{
+        super();
         setCategory(category);
         setOwner(user);
         setPrice(price);
