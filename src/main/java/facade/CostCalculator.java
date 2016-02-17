@@ -15,17 +15,15 @@ public class CostCalculator {
     private UserRepository userRepository;
 
     public CostCalculator(){
-        CostRepositoryFactory costFactory=new CostRepositoryFactory();
-        UserRepositoryFactory userFactory=new UserRepositoryFactory();
         try {
-            this.costRepository=costFactory.createCostRepository(RepositoryTypes.FAKE);
+            this.costRepository=new CostRepositoryFactory().createCostRepository(RepositoryTypes.FAKE);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
         try {
-            this.userRepository=userFactory.createUserRepository(RepositoryTypes.FAKE);
+            this.userRepository=new UserRepositoryFactory().createUserRepository(RepositoryTypes.FAKE);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
@@ -33,6 +31,11 @@ public class CostCalculator {
         }
     }
 
+    public CostRepository getCostRepository() {
+        return costRepository;
+    }
 
-
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
 }
