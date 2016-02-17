@@ -3,6 +3,7 @@ package user.repository;
 import user.Role;
 import user.User;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -21,12 +22,26 @@ public class UserRepositoryDb implements UserRepository{
     private Connection connection;
     private Properties properties;
 
-    public UserRepositoryDb(Properties property) throws DbUserException {
-        setProperties(property);
+    public UserRepositoryDb() throws DbUserException {
+        Properties properties = new Properties();
         try {
+            properties.load(getClass().getClassLoader().getResourceAsStream("DBinfo.properties"));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        String url = "jdbc:postgresql://gegevensbanken.khleuven.be:51516/2TX33";
+        properties.setProperty("ssl", "true");
+        properties.setProperty("sslfactory", "org.postgresql.ssl.NonValidatingFactory");
+
+        try{
             Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Class not found");
+            connection = DriverManager.getConnection(url, properties);
+            System.out.println("message: connection to ProductDB made");
+            //statement = connection.createStatement();
+        }catch(SQLException e){
+            throw new DbUserException(e.getMessage());
+        }catch(ClassNotFoundException e){
+            throw new DbUserException(e.getMessage());
         }
     }
 
