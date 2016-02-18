@@ -56,12 +56,7 @@ public class CostCalculatorTest {
         owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         Cost cost = new FreeTimeCost(15.0, owner, "Leuven" );
         facade.addCost(cost);
-        boolean test= false;
-        try {
-            test = facade.getCostRepository().getAllCosts().contains(cost);
-        } catch (DbCostException e) {
-            e.printStackTrace();
-        }
+        boolean test=  facade.getCostRepository().getAllCosts().contains(cost);
         assertTrue(test);
     }
 
@@ -71,12 +66,7 @@ public class CostCalculatorTest {
         owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         Cost cost = new FreeTimeCost(15.0, owner, "Leuven" );
         facade.deleteCost(cost);
-        boolean test= true;
-        try {
-            test = facade.getCostRepository().getAllCosts().contains(cost);
-        } catch (DbCostException e) {
-            e.printStackTrace();
-        }
+        boolean test=  facade.getCostRepository().getAllCosts().contains(cost);
         assertFalse(test);
     }
 
