@@ -8,20 +8,14 @@ import user.User;
 public class Cost extends Identifiable{
 
     private double price;
-    private Category category;
     private User owner;
     private String location;
 
-    public Cost(double price, Category category, User user, String location) throws IllegalArgumentException{
+    public Cost(double price, User user, String location) throws IllegalArgumentException{
         super();
-        setCategory(category);
         setOwner(user);
         setPrice(price);
         setLocation(location);
-    }
-
-    public Category getCategory() {
-        return category;
     }
 
     public double getPrice() {
@@ -34,11 +28,6 @@ public class Cost extends Identifiable{
 
     public String getLocation() {
         return location;
-    }
-
-    private void setCategory(Category category)  throws IllegalArgumentException{
-        if (category==null)throw new IllegalArgumentException("Category can't be empty");
-        this.category = category;
     }
 
     private void setOwner(User owner)  throws IllegalArgumentException{

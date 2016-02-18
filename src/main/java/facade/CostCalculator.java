@@ -2,6 +2,7 @@ package facade;
 
 import cost.Cost;
 import cost.repository.CostRepository;
+import cost.repository.DbCostException;
 import factory.CostRepositoryFactory;
 import factory.RepositoryTypes;
 import factory.UserRepositoryFactory;
@@ -9,8 +10,6 @@ import user.User;
 import user.repository.DbUserException;
 import user.repository.UserRepository;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -47,27 +46,61 @@ public class CostCalculator {
     }
 
     public List<Cost> getAllCosts(){
-        return this.getCostRepository().getAllCosts();
+        List<Cost> returnList=null;
+        try {
+            returnList= this.getCostRepository().getAllCosts();
+        } catch (DbCostException e) {
+            e.printStackTrace();
+        }
+        return returnList;
     }
     public void addCost(Cost cost){
-        this.getCostRepository().addCost(cost);
+        try {
+            this.getCostRepository().addCost(cost);
+        } catch (DbCostException e) {
+            e.printStackTrace();
+        }
     }
     public void deleteCost(Cost cost){
-        this.getCostRepository().deleteCost(cost);
+        try {
+            this.getCostRepository().deleteCost(cost);
+        } catch (DbCostException e) {
+            e.printStackTrace();
+        }
     }
 
-    public List<User> getAllUsers() throws DbUserException, UnsupportedEncodingException, NoSuchAlgorithmException{
-        return this.getUserRepository().getAllUsers();
+    public List<User> getAllUsers(){
+        List<User> userReturn=null;
+        try {
+            userReturn = this.getUserRepository().getAllUsers();
+        } catch (DbUserException e) {
+            e.printStackTrace();
+        }
+        return userReturn;
     }
 
-    public User getUserByEmail(String email) throws UnsupportedEncodingException, NoSuchAlgorithmException, DbUserException{
-        return this.getUserRepository().getUserByEmail(email);
+    public User getUserByEmail(String email){
+        User user =null;
+        try {
+            user= this.getUserRepository().getUserByEmail(email);
+        } catch (DbUserException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
-    public void addUser(User user) throws DbUserException, UnsupportedEncodingException, NoSuchAlgorithmException{
-        this.getUserRepository().addUser(user);
+    public void addUser(User user){
+        try {
+            this.getUserRepository().addUser(user);
+        } catch (DbUserException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void deleteUser(String email) throws DbUserException{
-        this.getUserRepository().deleteUser(email);
+    public void deleteUser(String email){
+        try {
+            this.getUserRepository().deleteUser(email);
+        } catch (DbUserException e) {
+            e.printStackTrace();
+        }
     }
 }

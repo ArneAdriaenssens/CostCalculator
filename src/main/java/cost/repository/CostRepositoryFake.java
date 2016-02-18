@@ -2,6 +2,7 @@ package cost.repository;
 
 import cost.Cost;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,9 +13,11 @@ import java.util.Map;
 public class CostRepositoryFake implements CostRepository{
 
     private static Map<Long, Cost> costs;
+    private long lastId;
 
     public CostRepositoryFake(){
         costs=new HashMap<Long, Cost>();
+        lastId=0;
     }
 
     public Map<Long, Cost> getCosts() {
@@ -22,12 +25,13 @@ public class CostRepositoryFake implements CostRepository{
     }
 
     public List<Cost> getAllCosts() {
-        return (List<Cost>) getCosts().values();
+        return new ArrayList<Cost>(getCosts().values());
     }
 
     public void addCost(Cost cost) {
         if(cost==null)throw new IllegalArgumentException("Cost can't be empty");
         this.getCosts().put(cost.getId(), cost);
+        lastId++;
     }
 
     public void deleteCost(Cost cost) {

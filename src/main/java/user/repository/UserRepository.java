@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface UserRepository {
 
-    List<User> getAllUsers() throws DbUserException, UnsupportedEncodingException, NoSuchAlgorithmException;
-    User getUserByEmail(String email) throws UnsupportedEncodingException, NoSuchAlgorithmException, DbUserException;
-    void addUser(User user) throws DbUserException, UnsupportedEncodingException, NoSuchAlgorithmException;
+    List<User> getAllUsers() throws  DbUserException;
+    User getUserByEmail(String email) throws DbUserException;
+    void addUser(User user) throws DbUserException;
     void deleteUser(String email) throws DbUserException;
 }

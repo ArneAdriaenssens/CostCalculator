@@ -9,8 +9,8 @@ import java.util.List;
  */
 public interface CostRepository {
 
-    List<Cost> getAllCosts();
-    void addCost(Cost cost);
-    void deleteCost(Cost cost);
+    List<Cost> getAllCosts() throws DbCostException;
+    void addCost(Cost cost)throws DbCostException;
+    void deleteCost(Cost cost)throws DbCostException;
 
 }

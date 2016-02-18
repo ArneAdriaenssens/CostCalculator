@@ -23,6 +23,9 @@ public class User {
     private byte[] salt;
     private String password;
 
+    public User(String firstName, String lastName, String email, String password) throws IllegalArgumentException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        this(firstName, lastName, email, password, new SecureRandom().generateSeed(20), Role.USER);
+    }
 
     public User(String firstName, String lastName, String email, String password, byte[] salt) throws IllegalArgumentException, UnsupportedEncodingException, NoSuchAlgorithmException {
         this(firstName, lastName, email, password, salt, Role.USER);

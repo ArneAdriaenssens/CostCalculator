@@ -62,7 +62,7 @@ public class UserRepositoryDb implements UserRepository{
         }
     }
 
-    public List<User> getAllUsers() throws DbUserException, UnsupportedEncodingException, NoSuchAlgorithmException {
+    public List<User> getAllUsers() throws DbUserException {
         List<User> terug = new ArrayList<User>();
         String sql = "SELECT * "
                 + "FROM r0576067.db_site_person";
@@ -79,7 +79,13 @@ public class UserRepositoryDb implements UserRepository{
         }
         try {
             while(rs.next()){
-                terug.add(new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBytes(5), Role.valueOf(rs.getString(6))));
+                try {
+                    terug.add(new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBytes(5), Role.valueOf(rs.getString(6))));
+                } catch (UnsupportedEncodingException e) {
+                    throw new DbUserException(e.getMessage());
+                } catch (NoSuchAlgorithmException e) {
+                    throw new DbUserException(e.getMessage());
+                }
             }
         } catch (IllegalArgumentException e) {
             throw new DbUserException(e.getMessage());
@@ -91,7 +97,7 @@ public class UserRepositoryDb implements UserRepository{
         return terug;
     }
 
-    public User getUserByEmail(String email) throws UnsupportedEncodingException, NoSuchAlgorithmException, DbUserException {
+    public User getUserByEmail(String email) throws DbUserException {
         if(email == null)throw new IllegalArgumentException("Nothing to find");
         if(email.equals("")) throw new DbUserException("Id is empty");
         String sql = "SELECT userid, password, firstname,  lastname, role, salt"
@@ -109,7 +115,7 @@ public class UserRepositoryDb implements UserRepository{
         catch (SQLException e) {
             throw new DbUserException(e.getMessage());
         }
-        User p;
+        User p=null;
         try {
             rs.next();
             p = new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBytes(5), Role.valueOf(rs.getString(6)) );
@@ -117,13 +123,17 @@ public class UserRepositoryDb implements UserRepository{
             throw new DbUserException(e.getMessage());
         } catch (SQLException e) {
             throw new DbUserException(e.getMessage());
+        } catch (NoSuchAlgorithmException e) {
+            throw new DbUserException(e.getMessage());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         } finally{
             this.closeConnecction();
         }
         return p;
     }
 
-    public void addUser(User user) throws DbUserException, UnsupportedEncodingException, NoSuchAlgorithmException {
+    public void addUser(User user) throws DbUserException{
         if(user == null) throw new IllegalArgumentException("No person given");
         if( this.getAllUsers().contains(user) ) throw new IllegalArgumentException("User already exists");
         String query = "insert into r0576067.db_site_person (userId, firstName, lastName, password, role, salt) values(?, ?, ?, ?, ?, ?)";

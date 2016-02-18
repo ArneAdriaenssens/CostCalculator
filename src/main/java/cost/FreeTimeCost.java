@@ -8,7 +8,7 @@ import user.User;
 public class FreeTimeCost extends Cost{
 
     public FreeTimeCost(double price, User owner, String location){
-        super(price, Category.FOOD, owner, location);
+        super(price, owner, location);
     }
 
     @Override

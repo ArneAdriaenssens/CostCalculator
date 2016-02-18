@@ -17,7 +17,7 @@ import java.util.Properties;
 public class CostRepositoryFactory {
 
     public CostRepository createCostRepository(RepositoryTypes type) throws ClassNotFoundException, NoSuchMethodException {
-        Class<CostRepository> klasse = (Class<CostRepository>) Class.forName("CostRepository"+type.getValue());
+        Class<CostRepository> klasse = (Class<CostRepository>) Class.forName("cost.repository.CostRepository"+type.getValue());
         Constructor<CostRepository> construct = klasse.getConstructor();
         CostRepository costRepository=null;
         try {
