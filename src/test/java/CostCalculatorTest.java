@@ -5,10 +5,7 @@ import facade.CostCalculator;
 import org.junit.Before;
 import org.junit.Test;
 import user.User;
-import user.repository.DbUserException;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -52,7 +49,7 @@ public class CostCalculatorTest {
         test=(users!=null);
         assertTrue(test);
     }
-/*
+
     @Test
     public void test_add_cost_voegt_geldige_cost_toe(){
         User owner=null;
@@ -67,7 +64,7 @@ public class CostCalculatorTest {
         }
         assertTrue(test);
     }
-*/
+
     @Test
     public void test_delete_cost_verwijdert_cost(){
         User owner=null;
