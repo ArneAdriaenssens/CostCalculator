@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Arne on 17/02/2016.
  */
-public class CostCalculatorTesting {
+public class CostCalculatorTest {
 
     private CostCalculator facade;
 
