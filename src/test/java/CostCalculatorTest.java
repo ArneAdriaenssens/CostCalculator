@@ -8,9 +8,6 @@ import user.User;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 
 /**
  * Created by Arne on 17/02/2016.
@@ -28,7 +25,7 @@ public class CostCalculatorTest {
     public void test_creatie_facade_maakt_costrepository(){
         assertEquals(true,facade.getCostRepository()!=null);
     }
-/*
+
     @Test
     public void test_creatie_facade_maakt_userrepository(){
         assertEquals(true,facade.getUserRepository()!=null);
@@ -37,13 +34,13 @@ public class CostCalculatorTest {
     @Test
     public void test_get_all_cost_geeft_correcte_lijst(){
         List<Cost> costs = facade.getAllCosts();
-        assertTrue(costs!=null);
+        assertEquals(true,costs!=null);
     }
 
     @Test
     public void test_get_all_users_geeft_correcte_lijst(){
         List<User> users = facade.getAllUsers();
-        assertTrue(users!=null);
+        assertEquals(true,users!=null);
     }
 
     @Test
@@ -51,7 +48,7 @@ public class CostCalculatorTest {
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         Cost cost = new FreeTimeCost(15.0, owner, "Leuven" );
         facade.addCost(cost);
-        assertTrue(facade.getCostRepository().getAllCosts().contains(cost));
+        assertEquals(true,facade.getCostRepository().getAllCosts().contains(cost));
     }
 
     @Test
@@ -59,7 +56,7 @@ public class CostCalculatorTest {
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         Cost cost = new FreeTimeCost(15.0, owner, "Leuven" );
         facade.deleteCost(cost);
-        assertFalse(facade.getCostRepository().getAllCosts().contains(cost));
+        assertEquals(false,facade.getCostRepository().getAllCosts().contains(cost));
     }
 
     @Test
@@ -67,7 +64,7 @@ public class CostCalculatorTest {
         User owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         User vergelijk = facade.getUserByEmail("arne.adriaenssens@email.be");
-        assertTrue(vergelijk.equals(owner));
+        assertEquals(true,vergelijk.equals(owner));
     }
 
     @Test
@@ -75,15 +72,14 @@ public class CostCalculatorTest {
         User owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         boolean test=facade.getAllUsers().contains(owner);
-        assertTrue(test);
-    }*/
+        assertEquals(true,test);
+    }
 
     @Test
     public void test_delete_user_werkt_correct(){
         User owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         facade.deleteUser("arne.adriaenssens@email.be");
-        boolean test=facade.getAllUsers().contains(owner);
-        assertFalse(test);
+        assertEquals(false, facade.getAllUsers().contains(owner));
     }
 }
