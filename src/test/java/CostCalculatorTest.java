@@ -76,7 +76,7 @@ public class CostCalculatorTest {
         facade.addUser(owner);
         boolean test=facade.getAllUsers().contains(owner);
         assertTrue(test);
-    }
+    }*/
 
     @Test
     public void test_delete_user_werkt_correct(){
@@ -86,5 +86,4 @@ public class CostCalculatorTest {
         boolean test=facade.getAllUsers().contains(owner);
         assertFalse(test);
     }
-*/
 }
