@@ -18,12 +18,12 @@
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-parent</artifactId>
+            <artifactId>hamcrest-core</artifactId>
             <version>1.3</version>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-core</artifactId>
+            <artifactId>hamcrest-parent</artifactId>
             <version>1.3</version>
         </dependency>
 
