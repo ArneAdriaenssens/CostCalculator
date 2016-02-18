@@ -1,6 +1,5 @@
 package factory;
 
-import user.User;
 import user.repository.UserRepository;
 
 import java.lang.reflect.Constructor;
@@ -12,8 +11,8 @@ import java.lang.reflect.InvocationTargetException;
 public class UserRepositoryFactory {
 
     public UserRepository createUserRepository(RepositoryTypes type) throws NoSuchMethodException, ClassNotFoundException {
-        Class<UserRepository> klasse = (Class<UserRepository>) Class.forName("user.repository.UserRepository"+type.getValue());
-        Constructor<UserRepository> construct = klasse.getConstructor();
+        Class<UserRepository> userRepo = (Class<UserRepository>) Class.forName("user.repository.UserRepository"+type.getValue());
+        Constructor<UserRepository> construct = userRepo.getConstructor();
         UserRepository userRepository=null;
         try {
             userRepository =  construct.newInstance();

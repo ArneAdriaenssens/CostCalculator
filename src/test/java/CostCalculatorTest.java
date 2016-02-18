@@ -33,7 +33,7 @@ public class CostCalculatorTest {
     public void test_creatie_facade_maakt_userrepository(){
         assertEquals(true,facade.getUserRepository()!=null);
     }
-
+/*
     @Test
     public void test_get_all_cost_geeft_correcte_lijst(){
         List<Cost> costs = facade.getAllCosts();
@@ -86,5 +86,5 @@ public class CostCalculatorTest {
         boolean test=facade.getAllUsers().contains(owner);
         assertFalse(test);
     }
-
+*/
 }
