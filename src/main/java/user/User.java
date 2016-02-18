@@ -23,15 +23,15 @@ public class User {
     private byte[] salt;
     private String password;
 
-    public User(String firstName, String lastName, String email, String password) throws IllegalArgumentException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        this(firstName, lastName, email, password, new SecureRandom().generateSeed(20), Role.USER);
+    public User(String firstName, String lastName, String email, String password){
+        this(firstName, lastName, email, password, new SecureRandom().generateSeed(20));
     }
 
-    public User(String firstName, String lastName, String email, String password, byte[] salt) throws IllegalArgumentException, UnsupportedEncodingException, NoSuchAlgorithmException {
+    public User(String firstName, String lastName, String email, String password, byte[] salt){
         this(firstName, lastName, email, password, salt, Role.USER);
     }
 
-    public User(String firstName, String lastName, String email, String password, byte[] salt, Role role) throws IllegalArgumentException, UnsupportedEncodingException, NoSuchAlgorithmException {
+    public User(String firstName, String lastName, String email, String password, byte[] salt, Role role){
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
@@ -67,14 +67,20 @@ public class User {
         this.salt = salt;
     }
 
-    private void setRole(Role role) throws IllegalArgumentException {
+    private void setRole(Role role) {
         if (role == null) throw new IllegalArgumentException("Role can't be empty");
         this.role = role;
     }
 
-    private void setPassword(String password, byte[] salt) throws IllegalArgumentException, UnsupportedEncodingException, NoSuchAlgorithmException {
+    private void setPassword(String password, byte[] salt) {
         if (password == null || password.equals("")) throw new IllegalArgumentException("Password can't be emtpy");
-        this.password = this.hashPassword(password);
+        try {
+            this.password = this.hashPassword(password);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
     }
 
     private String hashPassword(String password) throws UnsupportedEncodingException, NoSuchAlgorithmException {

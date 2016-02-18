@@ -11,7 +11,7 @@ public class Cost extends Identifiable{
     private User owner;
     private String location;
 
-    public Cost(double price, User user, String location) throws IllegalArgumentException{
+    public Cost(double price, User user, String location){
         super();
         setOwner(user);
         setPrice(price);
@@ -30,17 +30,17 @@ public class Cost extends Identifiable{
         return location;
     }
 
-    private void setOwner(User owner)  throws IllegalArgumentException{
+    private void setOwner(User owner){
         if(owner==null)throw new IllegalArgumentException("Owner can't be empty");
         this.owner = owner;
     }
 
-    private void setPrice(double price) throws IllegalArgumentException {
+    private void setPrice(double price)  {
         if(price<=0)throw new IllegalArgumentException("Price must be greater then 0");
         this.price = price;
     }
 
-    private void setLocation(String location) throws IllegalArgumentException{
+    private void setLocation(String location) {
         if(location==null||location.equals(""))throw new IllegalArgumentException("Location can't be empty");
         this.location = location;
     }

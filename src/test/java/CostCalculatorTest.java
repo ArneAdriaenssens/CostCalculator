@@ -56,13 +56,7 @@ public class CostCalculatorTest {
     @Test
     public void test_add_cost_voegt_geldige_cost_toe(){
         User owner=null;
-        try {
-            owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         Cost cost = new FreeTimeCost(15.0, owner, "Leuven" );
         facade.addCost(cost);
         boolean test= false;
@@ -77,13 +71,7 @@ public class CostCalculatorTest {
     @Test
     public void test_delete_cost_verwijdert_cost(){
         User owner=null;
-        try {
-            owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         Cost cost = new FreeTimeCost(15.0, owner, "Leuven" );
         facade.deleteCost(cost);
         boolean test= true;
@@ -98,13 +86,7 @@ public class CostCalculatorTest {
     @Test
     public void test_get_user_by_email_geeft_juiste_user(){
         User owner=null;
-        try {
-            owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         User vergelijk = facade.getUserByEmail("arne.adriaenssens@email.be");
         assertTrue(vergelijk.equals(owner));
@@ -113,13 +95,7 @@ public class CostCalculatorTest {
     @Test
     public void test_add_user_voegt_geldige_user_toe(){
         User owner=null;
-        try {
-            owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         boolean test=facade.getAllUsers().contains(owner);
         assertTrue(test);
@@ -128,13 +104,7 @@ public class CostCalculatorTest {
     @Test
     public void test_delete_user_werkt_correct(){
         User owner=null;
-        try {
-            owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         facade.deleteUser("arne.adriaenssens@email.be");
         boolean test=facade.getAllUsers().contains(owner);
