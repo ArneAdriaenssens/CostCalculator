@@ -52,7 +52,7 @@ public class CostCalculatorTest {
         test=(users!=null);
         assertTrue(test);
     }
-
+/*
     @Test
     public void test_add_cost_voegt_geldige_cost_toe(){
         User owner=null;
@@ -67,7 +67,7 @@ public class CostCalculatorTest {
         }
         assertTrue(test);
     }
-/*
+*/
     @Test
     public void test_delete_cost_verwijdert_cost(){
         User owner=null;
@@ -109,6 +109,6 @@ public class CostCalculatorTest {
         facade.deleteUser("arne.adriaenssens@email.be");
         boolean test=facade.getAllUsers().contains(owner);
         assertFalse(test);
-    }*/
+    }
 
 }
