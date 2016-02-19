@@ -23,7 +23,7 @@ public class CostCalculatorTest {
 
     @Test
     public void test_creatie_facade_maakt_costrepository(){
-        assertEquals(true,facade.getCostRepository()!=null);
+        assertTrue(facade.getCostRepository()!=null);
     }
 
     @Test
