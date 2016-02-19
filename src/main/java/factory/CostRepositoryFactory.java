@@ -2,6 +2,7 @@
 package factory;
 
 import cost.repository.CostRepository;
+import cost.repository.CostRepositoryFake;
 import user.repository.UserRepository;
 
 import java.io.FileNotFoundException;
@@ -17,18 +18,9 @@ import java.util.Properties;
 public class CostRepositoryFactory {
 
     public CostRepository createCostRepository(RepositoryTypes type) throws ClassNotFoundException, NoSuchMethodException {
-        Class<CostRepository> klasse = (Class<CostRepository>) Class.forName("cost.repository.CostRepository"+type.getValue());
-        Constructor<CostRepository> construct = klasse.getConstructor();
         CostRepository costRepository=null;
-        try {
-            costRepository =  construct.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        if(type.equals(RepositoryTypes.DB)) costRepository=new CostRepositoryFake();
+        else if(type.equals(RepositoryTypes.FAKE)) costRepository=new CostRepositoryFake();
         return costRepository;
     }
 

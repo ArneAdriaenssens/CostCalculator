@@ -1,6 +1,9 @@
 package factory;
 
+import user.User;
 import user.repository.UserRepository;
+import user.repository.UserRepositoryDb;
+import user.repository.UserRepositoryFake;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -11,18 +14,9 @@ import java.lang.reflect.InvocationTargetException;
 public class UserRepositoryFactory {
 
     public UserRepository createUserRepository(RepositoryTypes type) throws NoSuchMethodException, ClassNotFoundException {
-        Class<UserRepository> userRepo = (Class<UserRepository>) Class.forName("user.repository.UserRepository"+type.getValue());
-        Constructor<UserRepository> construct = userRepo.getConstructor();
-        UserRepository userRepository=null;
-        try {
-            userRepository =  construct.newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return userRepository;
+        UserRepository userRepo = null;
+        if(type.equals(RepositoryTypes.FAKE)) userRepo = new UserRepositoryFake();
+        else if (type.equals(RepositoryTypes.DB)) userRepo=new UserRepositoryDb();
+        return userRepo;
     }
 }
