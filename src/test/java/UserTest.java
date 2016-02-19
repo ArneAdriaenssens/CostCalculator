@@ -24,7 +24,7 @@ public class UserTest {
     public void test_creatie_facade_maakt_userrepository(){
         assertTrue(facade.getUserRepository()!=null);
     }
-
+/*
     @Test
     public void test_get_all_users_geeft_correcte_lijst(){
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
@@ -32,7 +32,7 @@ public class UserTest {
         List<User> users = facade.getAllUsers();
         assertTrue(users.size()==1);
     }
-/*
+
     @Test
     public void test_get_user_by_email_geeft_juiste_user(){
         User owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
