@@ -26,10 +26,7 @@ public class CostTest {
         assertTrue(facade.getCostRepository()!=null);
     }
 
-    @Test
-    public void test_creatie_facade_maakt_userrepository(){
-        assertTrue(facade.getUserRepository()!=null);
-    }
+    /*
 
     @Test
     public void test_get_all_cost_geeft_correcte_lijst(){
@@ -53,5 +50,5 @@ public class CostTest {
         facade.addCost(cost);
         facade.deleteCost(cost);
         assertFalse(facade.getCostRepository().getAllCosts().contains(cost));
-    }
+    }*/
 }
