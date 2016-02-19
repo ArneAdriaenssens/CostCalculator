@@ -36,6 +36,7 @@ public class CostTest {
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         Cost cost = new FreeTimeCost(15.0, owner, "Leuven" );
         facade.addCost(cost);
+
         assertTrue(facade.getCostRepository().getAllCosts().contains(cost));
     }
 
