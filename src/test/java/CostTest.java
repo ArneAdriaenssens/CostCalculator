@@ -1,6 +1,7 @@
 import cost.Cost;
 import cost.FreeTimeCost;
 import facade.CostCalculator;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import user.User;
@@ -26,8 +27,6 @@ public class CostTest {
         assertTrue(facade.getCostRepository()!=null);
     }
 
-    /*
-
     @Test
     public void test_get_all_cost_geeft_correcte_lijst(){
         List<Cost> costs = facade.getAllCosts();
@@ -50,5 +49,10 @@ public class CostTest {
         facade.addCost(cost);
         facade.deleteCost(cost);
         assertFalse(facade.getCostRepository().getAllCosts().contains(cost));
-    }*/
+    }
+
+    @After
+    public void tearDown(){
+        facade=null;
+    }
 }
