@@ -36,6 +36,6 @@ public class CostRepositoryFake implements CostRepository{
 
     public void deleteCost(Cost cost) {
         if(cost==null)throw new IllegalArgumentException("Cost can't be empty");
-        this.getCosts().remove(cost);
+        this.getCosts().remove(cost.getId());
     }
 }

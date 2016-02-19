@@ -39,8 +39,10 @@ public class CostCalculatorTest {
 
     @Test
     public void test_get_all_users_geeft_correcte_lijst(){
+        User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
+        facade.addUser(owner);
         List<User> users = facade.getAllUsers();
-        assertTrue(users!=null);
+        assertTrue(users.size()==1);
     }
 
     @Test
@@ -55,7 +57,10 @@ public class CostCalculatorTest {
     public void test_delete_cost_verwijdert_cost(){
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         Cost cost = new FreeTimeCost(15.0, owner, "Leuven" );
+        facade.addCost(cost);
+        System.out.println(facade.getAllCosts().toString());
         facade.deleteCost(cost);
+        System.out.println(facade.getAllCosts().toString());
         assertFalse(facade.getCostRepository().getAllCosts().contains(cost));
     }
 
@@ -71,8 +76,7 @@ public class CostCalculatorTest {
     public void test_add_user_voegt_geldige_user_toe(){
         User owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
-        boolean test=facade.getAllUsers().contains(owner);
-        assertTrue(test);
+        assertTrue(facade.getAllUsers().contains(owner));
     }
 
     @Test
