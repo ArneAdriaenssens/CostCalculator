@@ -10,9 +10,6 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Arne on 17/02/2016.
- */
 public class CostTest {
 
     private CostCalculator facade;
