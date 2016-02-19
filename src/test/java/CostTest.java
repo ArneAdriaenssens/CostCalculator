@@ -20,19 +20,19 @@ public class CostTest {
     }
 
     @Test
-    public void test_creatie_facade_maakt_costrepository(){
+    public void test_creation_facade_makes_costrepository(){
         assertTrue(facade.getCostRepository()!=null);
     }
 
     @Test
-    public void test_get_all_cost_geeft_correcte_lijst(){
+    public void test_get_all_cost_gives_correct_list(){
         List<Cost> costs = facade.getAllCosts();
         assertTrue(costs!=null);
     }
 
 
     @Test
-    public void test_add_cost_voegt_geldige_cost_toe(){
+    public void test_add_cost_adds_valid_cost_toe(){
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         Cost cost = new FreeTimeCost(15.0, owner, "Leuven" );
         facade.addCost(cost);
@@ -40,7 +40,7 @@ public class CostTest {
     }
 
     @Test
-    public void test_delete_cost_verwijdert_cost(){
+    public void test_delete_cost_deletes_cost(){
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         Cost cost = new FreeTimeCost(15.0, owner, "Leuven" );
         facade.addCost(cost);

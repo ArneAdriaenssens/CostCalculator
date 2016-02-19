@@ -19,20 +19,20 @@ public class UserTest {
     }
 
     @Test
-    public void test_creatie_facade_maakt_userrepository(){
+    public void test_creation_facade_makes_userrepository(){
         assertTrue(facade.getUserRepository()!=null);
     }
 
     @Test
-    public void test_get_all_users_geeft_correcte_lijst(){
+    public void test_get_all_users_gives_correct_list(){
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         List<User> users = facade.getAllUsers();
         assertTrue(users.size()==1);
     }
-/*
+
     @Test
-    public void test_get_user_by_email_geeft_juiste_user(){
+    public void test_get_user_by_email_gives_correct_user(){
         User owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         User vergelijk = facade.getUserByEmail("arne.adriaenssens@email.be");
@@ -40,20 +40,20 @@ public class UserTest {
     }
 
     @Test
-    public void test_add_user_voegt_geldige_user_toe(){
+    public void test_add_user_adds_valid_user(){
         User owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         assertTrue(facade.getAllUsers().contains(owner));
     }
 
     @Test
-    public void test_delete_user_werkt_correct(){
+    public void test_delete_user_works_correct(){
         User owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         facade.deleteUser("arne.adriaenssens@email.be");
         assertFalse(facade.getAllUsers().contains(owner));
     }
-*/
+
     @After
     public void tearDown(){
         facade=null;
