@@ -22,10 +22,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="CostCalculator" />
         <module name="CostCalculatorWorkspace" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
+      <module name="CostCalculator" target="1.8" />
       <module name="CostCalculatorWorkspace" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CostCalculatorWorkspace.iml" filepath="$PROJECT_DIR$/CostCalculatorWorkspace.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CostCalculator.iml" filepath="$PROJECT_DIR$/CostCalculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CostCalculatorDomain.iml" filepath="$PROJECT_DIR$/CostCalculatorDomain.iml" />
     </modules>
   </component>
 </project>
