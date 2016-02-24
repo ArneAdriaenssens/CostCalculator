@@ -10,12 +10,18 @@ public class Cost extends Identifiable{
     private double price;
     private User owner;
     private String location;
+    private Category category;
 
-    public Cost(double price, User user, String location){
+    public Cost(double price, User user, String location, String category){
         super();
         setOwner(user);
         setPrice(price);
         setLocation(location);
+        setCategory(Category.valueOf(category));
+    }
+
+    public Category getCategory() {
+        return category;
     }
 
     public double getPrice() {
@@ -28,6 +34,10 @@ public class Cost extends Identifiable{
 
     public String getLocation() {
         return location;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     private void setOwner(User owner){

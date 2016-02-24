@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class UserRepositoryFactory {
 
-    public UserRepository createUserRepository(RepositoryTypes type) throws NoSuchMethodException, ClassNotFoundException {
+    public UserRepository createUserRepository(RepositoryTypes type) {
         UserRepository userRepo = null;
         if(type.equals(RepositoryTypes.FAKE)) userRepo = new UserRepositoryFake();
         else if (type.equals(RepositoryTypes.DB)) userRepo=new UserRepositoryDb();

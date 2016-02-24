@@ -21,27 +21,15 @@ public class CostCalculator {
     private UserRepository userRepository;
 
     public CostCalculator(){
-        try {
-            this.costRepository=new CostRepositoryFactory().createCostRepository(RepositoryTypes.FAKE);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        try {
-            this.userRepository=new UserRepositoryFactory().createUserRepository(RepositoryTypes.FAKE);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
+        this.costRepository=new CostRepositoryFactory().createCostRepository(RepositoryTypes.FAKE);
+        this.userRepository=new UserRepositoryFactory().createUserRepository(RepositoryTypes.FAKE);
     }
 
-    public CostRepository getCostRepository() {
+    private CostRepository getCostRepository() {
         return costRepository;
     }
 
-    public UserRepository getUserRepository() {
+    private UserRepository getUserRepository() {
         return userRepository;
     }
 

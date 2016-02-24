@@ -1,4 +1,6 @@
-import facade.CostCalculator;
+package facade;
+
+import cost.Cost;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -6,10 +8,9 @@ import user.User;
 
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-public class UserTest {
+public class CostCalculatorTest {
 
     private CostCalculator facade;
 
@@ -19,8 +20,28 @@ public class UserTest {
     }
 
     @Test
-    public void test_creation_facade_makes_userrepository(){
-        assertTrue(facade.getUserRepository()!=null);
+    public void test_get_all_cost_gives_correct_list(){
+        List<Cost> costs = facade.getAllCosts();
+        assertTrue(costs!=null);
+    }
+
+
+    @Test
+    public void test_add_cost_adds_valid_cost_toe(){
+        User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
+        Cost cost = new Cost(15.0, owner, "Leuven", "FREETIME" );
+        facade.addCost(cost);
+
+        assertTrue(facade.getAllCosts().contains(cost));
+    }
+
+    @Test
+    public void test_delete_cost_deletes_cost(){
+        User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
+        Cost cost = new Cost(15.0, owner, "Leuven", "FREETIME" );
+        facade.addCost(cost);
+        facade.deleteCost(cost);
+        assertFalse(facade.getAllCosts().contains(cost));
     }
 
     @Test

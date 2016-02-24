@@ -17,7 +17,7 @@ import java.util.Properties;
  */
 public class CostRepositoryFactory {
 
-    public CostRepository createCostRepository(RepositoryTypes type) throws ClassNotFoundException, NoSuchMethodException {
+    public CostRepository createCostRepository(RepositoryTypes type){
         CostRepository costRepository=null;
         if(type.equals(RepositoryTypes.DB)) costRepository=new CostRepositoryFake();
         else if(type.equals(RepositoryTypes.FAKE)) costRepository=new CostRepositoryFake();

@@ -13,7 +13,7 @@ import java.util.Map;
 public class CostRepositoryFake implements CostRepository{
 
     private static Map<Long, Cost> costs;
-    private long lastId;
+    private static long lastId;
 
     public CostRepositoryFake(){
         costs=new HashMap<Long, Cost>();
