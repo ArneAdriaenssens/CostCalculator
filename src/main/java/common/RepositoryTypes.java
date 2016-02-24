@@ -1,4 +1,4 @@
-package factory;
+package common;
 
 /**
  * Created by Arne on 11/02/2016.

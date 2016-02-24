@@ -1,4 +1,6 @@
-package cost;
+package cost.domain;
+
+import cost.repository.DbCostException;
 
 /**
  * Created by Arne on 11/02/2016.
@@ -17,7 +19,8 @@ public class Identifiable {
         return id;
     }
 
-    private void setId(long id) {
+    public void setId(long id) {
+        if(id<0)throw new DbCostException("Wrong id used");
         this.id = id;
     }
 }

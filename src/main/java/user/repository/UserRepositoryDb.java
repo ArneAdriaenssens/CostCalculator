@@ -1,11 +1,9 @@
 package user.repository;
 
-import user.Role;
-import user.User;
+import user.domain.Role;
+import user.domain.User;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

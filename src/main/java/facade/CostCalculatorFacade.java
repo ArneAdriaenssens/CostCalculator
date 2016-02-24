@@ -1,12 +1,12 @@
 package facade;
 
-import cost.Cost;
+import cost.domain.Cost;
 import cost.repository.CostRepository;
 import cost.repository.DbCostException;
-import factory.CostRepositoryFactory;
-import factory.RepositoryTypes;
-import factory.UserRepositoryFactory;
-import user.User;
+import cost.repository.CostRepositoryFactory;
+import common.RepositoryTypes;
+import user.repository.UserRepositoryFactory;
+import user.domain.User;
 import user.repository.DbUserException;
 import user.repository.UserRepository;
 
@@ -15,14 +15,14 @@ import java.util.List;
 /**
  * Created by Arne on 11/02/2016.
  */
-public class CostCalculator {
+public class CostCalculatorFacade {
 
     private CostRepository costRepository;
     private UserRepository userRepository;
 
-    public CostCalculator(){
-        this.costRepository=new CostRepositoryFactory().createCostRepository(RepositoryTypes.FAKE);
-        this.userRepository=new UserRepositoryFactory().createUserRepository(RepositoryTypes.FAKE);
+    public CostCalculatorFacade(String type){
+        this.costRepository=new CostRepositoryFactory().createCostRepository(RepositoryTypes.valueOf(type));
+        this.userRepository=new UserRepositoryFactory().createUserRepository(RepositoryTypes.valueOf(type));
     }
 
     private CostRepository getCostRepository() {

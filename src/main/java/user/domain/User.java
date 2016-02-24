@@ -1,4 +1,4 @@
-package user;
+package user.domain;
 
 
 import java.io.UnsupportedEncodingException;

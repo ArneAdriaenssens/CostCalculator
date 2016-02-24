@@ -1,9 +1,7 @@
 package user.repository;
 
-import user.User;
+import user.domain.User;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**

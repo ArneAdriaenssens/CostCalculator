@@ -1,6 +1,6 @@
-package cost;
+package cost.domain;
 
-import user.User;
+import user.domain.User;
 
 /**
  * Created by Arne on 11/02/2016.
@@ -36,7 +36,7 @@ public class Cost extends Identifiable{
         return location;
     }
 
-    public void setCategory(Category category) {
+    private void setCategory(Category category) {
         this.category = category;
     }
 

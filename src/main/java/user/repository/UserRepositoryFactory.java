@@ -1,12 +1,9 @@
-package factory;
+package user.repository;
 
-import user.User;
+import common.RepositoryTypes;
 import user.repository.UserRepository;
 import user.repository.UserRepositoryDb;
 import user.repository.UserRepositoryFake;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by Arne on 17/02/2016.

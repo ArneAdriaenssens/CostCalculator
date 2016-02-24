@@ -1,4 +1,4 @@
-package cost;
+package cost.domain;
 
 /**
  * Created by Arne on 17/02/2016.

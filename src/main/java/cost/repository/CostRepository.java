@@ -1,6 +1,6 @@
 package cost.repository;
 
-import cost.Cost;
+import cost.domain.Cost;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package cost.repository;
 
-import cost.Cost;
+import cost.domain.Cost;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +30,7 @@ public class CostRepositoryFake implements CostRepository{
 
     public void addCost(Cost cost) {
         if(cost==null)throw new IllegalArgumentException("Cost can't be empty");
+        cost.setId(lastId);
         this.getCosts().put(cost.getId(), cost);
         lastId++;
     }

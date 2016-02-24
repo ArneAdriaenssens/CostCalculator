@@ -1,4 +1,4 @@
-package user;
+package user.domain;
 
 /**
  * Created by Arne on 11/02/2016.
