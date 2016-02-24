@@ -20,14 +20,14 @@ public class CostCalculatorFacadeTest {
     }
 
     @Test
-    public void test_getallcost_gives_correct_list(){
+    public void test_getAllCosts_gives_correct_list(){
         List<Cost> costs = facade.getAllCosts();
         assertTrue(costs!=null);
     }
 
 
     @Test
-    public void test_addcost_adds_valid_cost_toe(){
+    public void test_addCost_adds_valid_cost_toe(){
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         Cost cost = new Cost(15.0, owner, "Leuven", "FREETIME" );
         facade.addCost(cost);
@@ -36,7 +36,7 @@ public class CostCalculatorFacadeTest {
     }
 
     @Test
-    public void test_addcost_adds_multiple_valid_cost_toe(){
+    public void test_addCost_adds_multiple_valid_cost_toe(){
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         Cost cost1 = new Cost(15.0, owner, "Leuven", "FREETIME" );
         Cost cost2 = new Cost(15.0, owner, "Leuven", "DRINKS" );
@@ -46,7 +46,7 @@ public class CostCalculatorFacadeTest {
     }
 
     @Test
-    public void test_deletecost_deletes_cost(){
+    public void test_deleteCost_deletes_cost(){
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         Cost cost = new Cost(15.0, owner, "Leuven", "FREETIME" );
         facade.addCost(cost);
@@ -55,7 +55,7 @@ public class CostCalculatorFacadeTest {
     }
 
     @Test
-    public void test_getallusers_gives_correct_list(){
+    public void test_getAllUsers_gives_correct_list(){
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         List<User> users = facade.getAllUsers();
@@ -63,7 +63,7 @@ public class CostCalculatorFacadeTest {
     }
 
     @Test
-    public void test_getuserbyemail_gives_correct_user(){
+    public void test_getUserByEmail_gives_correct_user(){
         User owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         User vergelijk = facade.getUserByEmail("arne.adriaenssens@email.be");
@@ -71,14 +71,14 @@ public class CostCalculatorFacadeTest {
     }
 
     @Test
-    public void test_adduser_adds_valid_user(){
+    public void test_addUser_adds_valid_user(){
         User owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         assertTrue(facade.getAllUsers().contains(owner));
     }
 
     @Test
-    public void test_deleteuser_works_correct(){
+    public void test_deleteUser_works_correct(){
         User owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         facade.deleteUser("arne.adriaenssens@email.be");
