@@ -19,24 +19,18 @@ public class User {
     private String email;
 
     private Role role;
-
-    private byte[] salt;
     private String password;
 
     public User(String firstName, String lastName, String email, String password){
-        this(firstName, lastName, email, password, new SecureRandom().generateSeed(20));
+        this(firstName, lastName, email, password, Role.USER);
     }
 
-    public User(String firstName, String lastName, String email, String password, byte[] salt){
-        this(firstName, lastName, email, password, salt, Role.USER);
-    }
-
-    public User(String firstName, String lastName, String email, String password, byte[] salt, Role role){
+    public User(String firstName, String lastName, String email, String password, Role role){
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
-        setPassword(password, salt);
         setRole(role);
+        setPassword(password);
     }
 
     public String getPassword() {
@@ -59,45 +53,14 @@ public class User {
         return lastName;
     }
 
-    public byte[] getSalt() {
-        return salt;
-    }
-
-    private void setSalt(byte[] salt) {
-        this.salt = salt;
-    }
-
     private void setRole(Role role) {
         if (role == null) throw new IllegalArgumentException("Role can't be empty");
         this.role = role;
     }
 
-    private void setPassword(String password, byte[] salt) {
+    private void setPassword(String password) {
         if (password == null || password.equals("")) throw new IllegalArgumentException("Password can't be emtpy");
-        try {
-            this.password = this.hashPassword(password);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private String hashPassword(String password) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        MessageDigest crypt = MessageDigest.getInstance("SHA-1");
-        crypt.reset();
-
-        if (this.getSalt() == null) {
-            if (salt == null) this.setSalt(new SecureRandom().generateSeed(20));
-            else setSalt(salt);
-        }
-
-        byte[] salt = this.getSalt();
-
-        crypt.update(salt);
-        crypt.update(password.getBytes("UTF-8"));
-        byte[] digest = crypt.digest();
-        return new BigInteger(1, digest).toString(16);
+        this.password=password;
     }
 
     private void setFirstName(String firstName) throws IllegalArgumentException {
@@ -124,7 +87,7 @@ public class User {
         return m.matches();
     }
 
-    public boolean isSamePassword(String password) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        return this.hashPassword(password).equals(getPassword());
+    public boolean isSamePassword(String password) {
+        return password.equals(getPassword());
     }
 }
