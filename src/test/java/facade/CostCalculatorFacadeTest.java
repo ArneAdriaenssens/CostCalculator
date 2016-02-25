@@ -89,8 +89,9 @@ public class CostCalculatorFacadeTest {
 
     @Test
     public void server_test(){
-        byte[] testSalt = new SecureRandom().generateSeed(20);
-        assertTrue(true);
+        byte[] testSalt1 = new SecureRandom().generateSeed(20);
+        byte[] testSalt2 = new SecureRandom().generateSeed(20);
+        assertTrue(testSalt1.equals(testSalt2));
     }
 
     @After
