@@ -87,13 +87,6 @@ public class CostCalculatorFacadeTest {
         assertFalse(facade.getAllUsers().contains(owner));
     }
 
-    @Test
-    public void server_test(){
-        byte[] testSalt1 = new SecureRandom().generateSeed(20);
-        byte[] testSalt2 = new SecureRandom().generateSeed(20);
-        assertTrue(testSalt1.equals(testSalt2));
-    }
-
     @After
     public void tearDown(){
         facade=null;
