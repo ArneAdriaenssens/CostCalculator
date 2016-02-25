@@ -77,7 +77,7 @@ public class UserRepositoryDb implements UserRepository{
         }
         try {
             while(rs.next()){
-                terug.add(new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBytes(5), Role.valueOf(rs.getString(6))));
+                terug.add(new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), Role.valueOf(rs.getString(5))));
             }
         } catch (IllegalArgumentException e) {
             throw new DbUserException(e.getMessage());
@@ -110,7 +110,7 @@ public class UserRepositoryDb implements UserRepository{
         User p=null;
         try {
             rs.next();
-            p = new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBytes(5), Role.valueOf(rs.getString(6)) );
+            p = new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), Role.valueOf(rs.getString(5)) );
         } catch (IllegalArgumentException e) {
             throw new DbUserException(e.getMessage());
         } catch (SQLException e) {
@@ -133,8 +133,7 @@ public class UserRepositoryDb implements UserRepository{
             statement.setString(2, user.getLastName());
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getPassword());
-            statement.setBytes(5, user.getSalt());
-            statement.setString(6, user.getRole()+"");
+            statement.setString(5, user.getRole()+"");
             statement.execute();
         }
         catch(SQLException e){
