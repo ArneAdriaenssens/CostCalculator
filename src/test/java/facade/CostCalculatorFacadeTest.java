@@ -6,7 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 import user.domain.User;
 
+import java.security.SecureRandom;
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.Assert.*;
 
@@ -83,6 +85,12 @@ public class CostCalculatorFacadeTest {
         facade.addUser(owner);
         facade.deleteUser("arne.adriaenssens@email.be");
         assertFalse(facade.getAllUsers().contains(owner));
+    }
+
+    @Test
+    public void server_test(){
+        byte[] testSalt = new SecureRandom().generateSeed(20);
+        assertTrue(true);
     }
 
     @After
