@@ -1,5 +1,6 @@
 package facade;
 
+import common.RepositoryTypes;
 import cost.domain.Cost;
 import org.junit.After;
 import org.junit.Before;
@@ -16,7 +17,7 @@ public class CostCalculatorFacadeTest {
 
     @Before
     public void setUp(){
-        facade=new CostCalculatorFacade("FAKE");
+        facade=new CostCalculatorFacade(RepositoryTypes.FAKE);
     }
 
     @Test

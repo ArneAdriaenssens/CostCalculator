@@ -20,9 +20,9 @@ public class CostCalculatorFacade {
     private CostRepository costRepository;
     private UserRepository userRepository;
 
-    public CostCalculatorFacade(String type){
-        this.costRepository=new CostRepositoryFactory().createCostRepository(RepositoryTypes.valueOf(type));
-        this.userRepository=new UserRepositoryFactory().createUserRepository(RepositoryTypes.valueOf(type));
+    public CostCalculatorFacade(RepositoryTypes type){
+        this.costRepository=new CostRepositoryFactory().createCostRepository(type);
+        this.userRepository=new UserRepositoryFactory().createUserRepository(type);
     }
 
     private CostRepository getCostRepository() {
