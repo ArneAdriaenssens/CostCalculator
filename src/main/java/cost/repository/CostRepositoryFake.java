@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import user.domain.User;
 
 /**
  * Created by Arne on 17/02/2016.
@@ -16,7 +17,7 @@ public class CostRepositoryFake implements CostRepository{
     private static long lastId;
 
     public CostRepositoryFake(){
-        costs=new HashMap<Long, Cost>();
+        costs=new HashMap<>();
         lastId=0;
     }
 
@@ -24,10 +25,12 @@ public class CostRepositoryFake implements CostRepository{
         return costs;
     }
 
+    @Override
     public List<Cost> getAllCosts() {
-        return new ArrayList<Cost>(getCosts().values());
+        return new ArrayList<>(getCosts().values());
     }
 
+    @Override
     public void addCost(Cost cost) {
         if(cost==null)throw new IllegalArgumentException("Cost can't be empty");
         cost.setId(lastId);
@@ -35,6 +38,7 @@ public class CostRepositoryFake implements CostRepository{
         lastId++;
     }
 
+    @Override
     public void deleteCost(Cost cost) {
         if(cost==null)throw new IllegalArgumentException("Cost can't be empty");
         this.getCosts().remove(cost.getId());

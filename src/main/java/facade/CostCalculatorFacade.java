@@ -17,12 +17,16 @@ import java.util.List;
  */
 public class CostCalculatorFacade {
 
-    private CostRepository costRepository;
-    private UserRepository userRepository;
+    private final CostRepository costRepository;
+    private final UserRepository userRepository;
 
     public CostCalculatorFacade(RepositoryTypes type){
         this.costRepository=new CostRepositoryFactory().createCostRepository(type);
         this.userRepository=new UserRepositoryFactory().createUserRepository(type);
+        User wouter = new User("Wouter", "Adriaens", "wouter.adriaens@email.be", "123");
+        Cost cost = new Cost(15, wouter, "Leuven", "DRINKS");
+        userRepository.addUser(wouter);
+        costRepository.addCost(cost);
     }
 
     private CostRepository getCostRepository() {
