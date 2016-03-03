@@ -23,7 +23,7 @@ public class CostCalculatorFacadeTest {
     @Test
     public void test_getAllCosts_gives_correct_list(){
         List<Cost> costs = facade.getAllCosts();
-        assertTrue(costs!=null);
+        assertTrue(costs.size()==2);
     }
 
 
@@ -43,7 +43,7 @@ public class CostCalculatorFacadeTest {
         Cost cost2 = new Cost(15.0, owner, "Leuven", "DRINKS" );
         facade.addCost(cost1);
         facade.addCost(cost2);
-        assertTrue(facade.getAllCosts().size()==2);
+        assertTrue(facade.getAllCosts().size()==4);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class CostCalculatorFacadeTest {
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         List<User> users = facade.getAllUsers();
-        assertTrue(users.size()==1);
+        assertTrue(users.size()==2);
     }
 
     @Test
