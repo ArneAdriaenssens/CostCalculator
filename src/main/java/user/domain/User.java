@@ -1,7 +1,10 @@
 package user.domain;
 
 
+import cost.domain.Cost;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,6 +19,7 @@ public class User implements Serializable{
 
     private Role role;
     private String password;
+    private List<Cost> costs;
 
     public User(){}
     
@@ -24,13 +28,22 @@ public class User implements Serializable{
     }
 
     public User(String firstName, String lastName, String email, String password, Role role){
+        this(firstName, lastName, email, password, role, new ArrayList<>());
+    }
+
+    public User(String firstName, String lastName, String email, String password, Role role, List<Cost> costs){
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
         setRole(role);
         setPassword(password);
+        setCosts(costs);
     }
 
+    public List<Cost> getCosts() {
+        return costs;
+    }
+    
     public String getPassword() {
         return password;
     }
@@ -49,6 +62,10 @@ public class User implements Serializable{
 
     public String getLastName() {
         return lastName;
+    }
+
+    private void setCosts(List<Cost> costs) {
+        this.costs = costs;
     }
 
     private void setRole(Role role) {
