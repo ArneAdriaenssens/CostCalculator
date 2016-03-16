@@ -11,13 +11,15 @@ public class Cost extends Identifiable{
     private User owner;
     private String location;
     private Category category;
+    private String description;
 
-    public Cost(double price, User user, String location, String category){
+    public Cost(double price, User user, String location, String category, String description){
         super();
         setOwner(user);
         setPrice(price);
         setLocation(location);
         setCategory(Category.valueOf(category));
+        setDescription(description);
     }
 
     public Category getCategory() {
@@ -36,6 +38,10 @@ public class Cost extends Identifiable{
         return location;
     }
 
+    public String getDescription() {
+        return description;
+    }
+    
     private void setCategory(Category category) {
         this.category = category;
     }
@@ -53,6 +59,10 @@ public class Cost extends Identifiable{
     private void setLocation(String location) {
         if(location==null||location.equals(""))throw new IllegalArgumentException("Location can't be empty");
         this.location = location;
+    }
+
+    private void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

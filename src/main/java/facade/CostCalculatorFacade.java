@@ -24,10 +24,10 @@ public class CostCalculatorFacade implements CostCalculator{
         this.costRepository=new CostRepositoryFactory().createCostRepository(type);
         this.userRepository=new UserRepositoryFactory().createUserRepository(type);
         User wouter = new User("Wooterq", "Adsriaens", "wouter.adriaens@email.be", "123");
-        Cost cost = new Cost(15, wouter, "Leuven", "DRINKS");
+        Cost cost = new Cost(15, wouter, "Leuven", "DRINKS", "Arne trakteren");
         this.addUser(wouter);
         this.addCost(cost);
-        Cost cost2 = new Cost(15, wouter, "Leuven", "DRINKS");
+        Cost cost2 = new Cost(15, wouter, "Leuven", "DRINKS", "Arne nog eens trakteren");
         this.costRepository.addCost(cost2);
     }
 
