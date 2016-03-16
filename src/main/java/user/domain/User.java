@@ -1,18 +1,14 @@
 package user.domain;
 
 
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Created by Arne on 10/02/2016.
  */
-public class User {
+public class User implements Serializable{
 
     private String firstName;
     private String lastName;
@@ -21,6 +17,8 @@ public class User {
     private Role role;
     private String password;
 
+    public User(){}
+    
     public User(String firstName, String lastName, String email, String password){
         this(firstName, lastName, email, password, Role.USER);
     }

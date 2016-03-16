@@ -13,6 +13,8 @@ public class Cost extends Identifiable{
     private Category category;
     private String description;
 
+    public Cost(){}
+    
     public Cost(double price, User user, String location, String category, String description){
         super();
         setOwner(user);
