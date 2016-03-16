@@ -2,9 +2,6 @@
 package cost.repository;
 
 import common.RepositoryTypes;
-import cost.repository.CostRepository;
-import cost.repository.CostRepositoryFake;
-
 /**
  * Created by Arne on 11/02/2016.
  */

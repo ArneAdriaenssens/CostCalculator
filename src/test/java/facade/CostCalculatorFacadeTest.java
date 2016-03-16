@@ -1,14 +1,13 @@
 package facade;
 
+import common.RepositoryTypes;
 import cost.domain.Cost;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import user.domain.User;
 
-import java.security.SecureRandom;
 import java.util.List;
-import java.util.Random;
 
 import static org.junit.Assert.*;
 
@@ -18,13 +17,13 @@ public class CostCalculatorFacadeTest {
 
     @Before
     public void setUp(){
-        facade=new CostCalculatorFacade("FAKE");
+        facade=new CostCalculatorFacade(RepositoryTypes.FAKE);
     }
 
     @Test
     public void test_getAllCosts_gives_correct_list(){
         List<Cost> costs = facade.getAllCosts();
-        assertTrue(costs!=null);
+        assertTrue(costs.size()==2);
     }
 
 
@@ -44,7 +43,7 @@ public class CostCalculatorFacadeTest {
         Cost cost2 = new Cost(15.0, owner, "Leuven", "DRINKS" );
         facade.addCost(cost1);
         facade.addCost(cost2);
-        assertTrue(facade.getAllCosts().size()==2);
+        assertTrue(facade.getAllCosts().size()==4);
     }
 
     @Test
@@ -61,7 +60,7 @@ public class CostCalculatorFacadeTest {
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         List<User> users = facade.getAllUsers();
-        assertTrue(users.size()==1);
+        assertTrue(users.size()==2);
     }
 
     @Test
