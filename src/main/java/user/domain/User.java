@@ -105,4 +105,9 @@ public class User implements Serializable{
     public boolean isSamePassword(String password) {
         return password.equals(getPassword());
     }
+    
+    public void addCosts(Cost cost){
+        if(cost==null) throw new UserException("Cost can't be emtpy");
+        this.getCosts().add(cost);
+    }
 }

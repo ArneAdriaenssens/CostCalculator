@@ -54,6 +54,8 @@ public class CostCalculatorFacade implements CostCalculator{
     public void addCost(Cost cost){
         try {
             this.getCostRepository().addCost(cost);
+            User owner = cost.getOwner();
+            owner.addCosts(cost);
         } catch (DbCostException e) {
             System.out.println("Somthing went wrong");
         }
