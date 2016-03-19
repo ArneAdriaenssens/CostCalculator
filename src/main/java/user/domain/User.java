@@ -21,7 +21,9 @@ public class User implements Serializable{
     private String password;
     private List<Cost> costs;
 
-    public User(){}
+    public User(){
+        this.costs = new ArrayList<>();
+    }
     
     public User(String firstName, String lastName, String email, String password){
         this(firstName, lastName, email, password, Role.USER);
@@ -64,31 +66,31 @@ public class User implements Serializable{
         return lastName;
     }
 
-    private void setCosts(List<Cost> costs) {
+    public void setCosts(List<Cost> costs) {
         this.costs = costs;
     }
 
-    private void setRole(Role role) {
+    public void setRole(Role role) {
         if (role == null) throw new IllegalArgumentException("Role can't be empty");
         this.role = role;
     }
 
-    private void setPassword(String password) {
+    public void setPassword(String password) {
         if (password == null || password.equals("")) throw new IllegalArgumentException("Password can't be emtpy");
         this.password=password;
     }
 
-    private void setFirstName(String firstName) throws IllegalArgumentException {
+    public void setFirstName(String firstName) throws IllegalArgumentException {
         if (firstName == null || firstName.equals("")) throw new IllegalArgumentException("First name can't be empty");
         this.firstName = firstName;
     }
 
-    private void setLastName(String lastName) throws IllegalArgumentException {
+    public void setLastName(String lastName) throws IllegalArgumentException {
         if (lastName == null || lastName.equals("")) throw new IllegalArgumentException("Last name can't be empty");
         this.lastName = lastName;
     }
 
-    private void setEmail(String email) throws IllegalArgumentException {
+    public void setEmail(String email) throws IllegalArgumentException {
         if (email == null || email.equals("")) throw new IllegalArgumentException("Last name can't be empty");
         if (!isCorrectEmail(email)) throw new IllegalArgumentException("Format for email is wrong!");
         this.email = email;
@@ -109,5 +111,9 @@ public class User implements Serializable{
     public void addCosts(Cost cost){
         if(cost==null) throw new UserException("Cost can't be emtpy");
         this.getCosts().add(cost);
+    }
+    
+    public String toString(){
+        return "user fName: " + getFirstName() +" lName: " + getLastName() + " email: " + getEmail();
     }
 }
