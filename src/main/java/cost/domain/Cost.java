@@ -12,15 +12,15 @@ public class Cost extends Identifiable{
     private String location;
     private Category category;
     private String description;
-
+    
     public Cost(){}
     
-    public Cost(double price, User user, String location, String category, String description){
+    public Cost(double price, String location, User owner, Category category, String description){
         super();
-        setOwner(user);
+        setOwner(owner);
         setPrice(price);
         setLocation(location);
-        setCategory(Category.valueOf(category));
+        setCategory(category);
         setDescription(description);
     }
 
@@ -44,31 +44,31 @@ public class Cost extends Identifiable{
         return description;
     }
     
-    private void setCategory(Category category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    private void setOwner(User owner){
+    public void setOwner(User owner){
         if(owner==null)throw new IllegalArgumentException("Owner can't be empty");
         this.owner = owner;
     }
 
-    private void setPrice(double price)  {
+    public void setPrice(double price)  {
         if(price<=0)throw new IllegalArgumentException("Price must be greater then 0");
         this.price = price;
     }
 
-    private void setLocation(String location) {
+    public void setLocation(String location) {
         if(location==null||location.equals(""))throw new IllegalArgumentException("Location can't be empty");
         this.location = location;
     }
 
-    private void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
     @Override
     public String toString() {
-        return "cost price: "+getPrice()+" location: "+getLocation()+" category: ";
+        return "cost price: "+getPrice()+" location: "+getLocation()+" category: "+getCategory() +" description: " + getDescription() + " owner name: " + getOwner().getFirstName();
     }
 }

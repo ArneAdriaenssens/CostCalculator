@@ -5,6 +5,7 @@ import cost.repository.CostRepository;
 import cost.repository.DbCostException;
 import cost.repository.CostRepositoryFactory;
 import common.RepositoryTypes;
+import cost.domain.Category;
 import user.repository.UserRepositoryFactory;
 import user.domain.User;
 import user.repository.DbUserException;
@@ -24,11 +25,11 @@ public class CostCalculatorFacade implements CostCalculator{
         this.costRepository=new CostRepositoryFactory().createCostRepository(type);
         this.userRepository=new UserRepositoryFactory().createUserRepository(type);
         User wouter = new User("Wooterq", "Adsriaens", "wouter.adriaens@email.be", "123");
-        Cost cost = new Cost(15, wouter, "Leuven", "DRINKS", "Arne trakteren");
+        Cost cost = new Cost(15, "Leuven", wouter,  Category.DRINKS, "Arne trakteren");
         this.addUser(wouter);
         this.addCost(cost);
-        Cost cost2 = new Cost(15, wouter, "Leuven", "DRINKS", "Arne nog eens trakteren");
-        this.costRepository.addCost(cost2);
+        Cost cost2 = new Cost(15, "Leuven", wouter, Category.DRINKS, "Arne nog eens trakteren");
+        this.addCost(cost2);
     }
 
     private CostRepository getCostRepository() {

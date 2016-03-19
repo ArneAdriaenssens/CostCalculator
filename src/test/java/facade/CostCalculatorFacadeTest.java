@@ -1,6 +1,7 @@
 package facade;
 
 import common.RepositoryTypes;
+import cost.domain.Category;
 import cost.domain.Cost;
 import org.junit.After;
 import org.junit.Before;
@@ -30,7 +31,7 @@ public class CostCalculatorFacadeTest {
     @Test
     public void test_addCost_adds_valid_cost_toe(){
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
-        Cost cost = new Cost(15.0, owner, "Leuven", "FREETIME", "Having fun" );
+        Cost cost = new Cost(15.0, "Leuven", owner, Category.FREETIME, "Having fun" );
         facade.addCost(cost);
 
         assertTrue(facade.getAllCosts().contains(cost));
@@ -39,8 +40,8 @@ public class CostCalculatorFacadeTest {
     @Test
     public void test_addCost_adds_multiple_valid_cost_toe(){
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
-        Cost cost1 = new Cost(15.0, owner, "Leuven", "FREETIME", "Plezier maken" );
-        Cost cost2 = new Cost(15.0, owner, "Leuven", "DRINKS", "Arne nog eens trakteren" );
+        Cost cost1 = new Cost(15.0, "Leuven", owner, Category.FREETIME, "Plezier maken" );
+        Cost cost2 = new Cost(15.0, "Leuven", owner, Category.DRINKS, "Arne nog eens trakteren" );
         facade.addCost(cost1);
         facade.addCost(cost2);
         assertTrue(facade.getAllCosts().size()==4);
@@ -49,7 +50,7 @@ public class CostCalculatorFacadeTest {
     @Test
     public void test_deleteCost_deletes_cost(){
         User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
-        Cost cost = new Cost(15.0, owner, "Leuven", "FREETIME", "Afzien" );
+        Cost cost = new Cost(15.0,"Leuven", owner, Category.FREETIME, "Afzien" );
         facade.addCost(cost);
         facade.deleteCost(cost);
         assertFalse(facade.getAllCosts().contains(cost));
