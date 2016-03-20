@@ -18,11 +18,11 @@ public interface CostCalculator {
     public List<Cost> getAllCosts();
     public void addCost(Cost cost);
     public void deleteCost(Cost cost);
+    public Cost getCostById(long id);
+    public void updateCost(Cost changedCost);
 
     public List<User> getAllUsers();
-
     public User getUserByEmail(String email);
     public void addUser(User user);
-
     public void deleteUser(String email);
 }

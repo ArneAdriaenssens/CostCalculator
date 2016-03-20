@@ -1,5 +1,6 @@
 package user.repository;
 
+import cost.domain.Cost;
 import user.domain.User;
 
 import java.util.ArrayList;
@@ -39,5 +40,19 @@ public class UserRepositoryFake implements UserRepository{
     public void deleteUser(String email)  {
         if(email.equals("")) throw new DbUserException("Email can't be empty");
         this.getUsers().remove(email);
+    }
+
+    @Override
+    public void updateCost(Cost cost) {
+        if(cost.getOwner()==null) throw new DbUserException("Owner does not exist");
+        else{
+            User owner = cost.getOwner();
+            for(int i=0; i<owner.getCosts().size(); i++){
+                if(owner.getCosts().get(i).getId()==(cost.getId())){
+                    owner.getCosts().remove(i);
+                    owner.addCosts(cost);
+                }
+            }
+        }
     }
 }

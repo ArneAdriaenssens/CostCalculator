@@ -110,4 +110,15 @@ public class CostCalculatorFacade implements CostCalculator{
             System.out.println("Somthing went wrong");
         }
     }
+
+    @Override
+    public Cost getCostById(long id) {
+        return costRepository.getCostById(id);
+    }
+
+    @Override
+    public void updateCost(Cost changedCost) {
+        costRepository.updateCost(changedCost);
+        userRepository.updateCost(changedCost);
+    }
 }

@@ -1,5 +1,6 @@
 package user.repository;
 
+import cost.domain.Cost;
 import user.domain.User;
 
 import java.util.List;
@@ -9,8 +10,9 @@ import java.util.List;
  */
 public interface UserRepository {
 
-    List<User> getAllUsers() throws  DbUserException;
-    User getUserByEmail(String email) throws DbUserException;
-    void addUser(User user) throws DbUserException;
-    void deleteUser(String email) throws DbUserException;
+    List<User> getAllUsers();
+    User getUserByEmail(String email);
+    void addUser(User user);
+    void deleteUser(String email);
+    void updateCost(Cost cost);
 }

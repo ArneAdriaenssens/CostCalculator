@@ -12,5 +12,7 @@ public interface CostRepository {
     List<Cost> getAllCosts();
     void addCost(Cost cost);
     void deleteCost(Cost cost);
+    Cost getCostById(long id);
+    void updateCost(Cost changedCost);
 
 }

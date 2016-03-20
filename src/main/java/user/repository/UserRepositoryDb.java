@@ -1,5 +1,6 @@
 package user.repository;
 
+import cost.domain.Cost;
 import user.domain.Role;
 import user.domain.User;
 
@@ -158,5 +159,10 @@ public class UserRepositoryDb implements UserRepository{
         } finally{
             this.closeConnecction();
         }
+    }
+
+    @Override
+    public void updateCost(Cost cost) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
