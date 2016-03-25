@@ -6,12 +6,12 @@ import cost.repository.DbCostException;
 import cost.repository.CostRepositoryFactory;
 import common.RepositoryTypes;
 import cost.domain.Category;
-import user.repository.UserRepositoryFactory;
-import user.domain.User;
-import user.repository.DbUserException;
-import user.repository.UserRepository;
+import owner.repository.OwnerRepositoryFactory;
+import owner.domain.Owner;
+import owner.repository.DbOwnerException;
 
 import java.util.List;
+import owner.repository.OwnerRepository;
 
 /**
  * Created by Arne on 11/02/2016.
@@ -19,12 +19,13 @@ import java.util.List;
 public class CostCalculatorFacade implements CostCalculator{
 
     private final CostRepository costRepository;
-    private final UserRepository userRepository;
-
-    public CostCalculatorFacade(RepositoryTypes type){
+    private final OwnerRepository userRepository;
+    private final RepositoryTypes type=RepositoryTypes.FAKE;
+    
+    public CostCalculatorFacade(){
         this.costRepository=new CostRepositoryFactory().createCostRepository(type);
-        this.userRepository=new UserRepositoryFactory().createUserRepository(type);
-        User wouter = new User("Wooterq", "Adsriaens", "wouter.adriaens@email.be", "123");
+        this.userRepository=new OwnerRepositoryFactory().createUserRepository(type);
+        Owner wouter = new Owner("Wooterq", "Adsriaens", "wouter.adriaens@email.be", "123");
         Cost cost = new Cost(15, "Leuven", wouter,  Category.DRINKS, "Arne trakteren");
         this.addUser(wouter);
         this.addCost(cost);
@@ -36,7 +37,7 @@ public class CostCalculatorFacade implements CostCalculator{
         return costRepository;
     }
 
-    private UserRepository getUserRepository() {
+    private OwnerRepository getUserRepository() {
         return userRepository;
     }
 
@@ -55,7 +56,7 @@ public class CostCalculatorFacade implements CostCalculator{
     public void addCost(Cost cost){
         try {
             this.getCostRepository().addCost(cost);
-            User owner = cost.getOwner();
+            Owner owner = cost.getOwner();
             owner.addCosts(cost);
         } catch (DbCostException e) {
             System.out.println("Somthing went wrong");
@@ -72,32 +73,32 @@ public class CostCalculatorFacade implements CostCalculator{
     }
 
     @Override
-    public List<User> getAllUsers(){
-        List<User> userReturn=null;
+    public List<Owner> getAllUsers(){
+        List<Owner> userReturn=null;
         try {
             userReturn = this.getUserRepository().getAllUsers();
-        } catch (DbUserException e) {
+        } catch (DbOwnerException e) {
             System.out.println("Somthing went wrong");
         }
         return userReturn;
     }
 
     @Override
-    public User getUserByEmail(String email){
-        User user =null;
+    public Owner getUserByEmail(String email){
+        Owner user =null;
         try {
             user= this.getUserRepository().getUserByEmail(email);
-        } catch (DbUserException e) {
+        } catch (DbOwnerException e) {
             System.out.println("Somthing went wrong");
         }
         return user;
     }
     
     @Override
-    public void addUser(User user){
+    public void addUser(Owner user){
         try {
             this.getUserRepository().addUser(user);
-        } catch (DbUserException e) {
+        } catch (DbOwnerException e) {
             System.out.println("Somthing went wrong");
         }
     }
@@ -106,7 +107,7 @@ public class CostCalculatorFacade implements CostCalculator{
     public void deleteUser(String email){
         try {
             this.getUserRepository().deleteUser(email);
-        } catch (DbUserException e) {
+        } catch (DbOwnerException e) {
             System.out.println("Somthing went wrong");
         }
     }

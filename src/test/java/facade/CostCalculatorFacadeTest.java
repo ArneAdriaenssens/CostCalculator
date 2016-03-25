@@ -1,12 +1,11 @@
 package facade;
 
-import common.RepositoryTypes;
 import cost.domain.Category;
 import cost.domain.Cost;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import user.domain.User;
+import owner.domain.Owner;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class CostCalculatorFacadeTest {
 
     @Before
     public void setUp(){
-        facade=new CostCalculatorFacade(RepositoryTypes.FAKE);
+        facade=new CostCalculatorFacade();
     }
 
     @Test
@@ -30,7 +29,7 @@ public class CostCalculatorFacadeTest {
 
     @Test
     public void test_addCost_adds_valid_cost_toe(){
-        User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
+        Owner owner=new Owner("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         Cost cost = new Cost(15.0, "Leuven", owner, Category.FREETIME, "Having fun" );
         facade.addCost(cost);
 
@@ -39,7 +38,7 @@ public class CostCalculatorFacadeTest {
 
     @Test
     public void test_addCost_adds_multiple_valid_cost_toe(){
-        User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
+        Owner owner=new Owner("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         Cost cost1 = new Cost(15.0, "Leuven", owner, Category.FREETIME, "Plezier maken" );
         Cost cost2 = new Cost(15.0, "Leuven", owner, Category.DRINKS, "Arne nog eens trakteren" );
         facade.addCost(cost1);
@@ -49,7 +48,7 @@ public class CostCalculatorFacadeTest {
 
     @Test
     public void test_deleteCost_deletes_cost(){
-        User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
+        Owner owner=new Owner("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         Cost cost = new Cost(15.0,"Leuven", owner, Category.FREETIME, "Afzien" );
         facade.addCost(cost);
         facade.deleteCost(cost);
@@ -58,30 +57,30 @@ public class CostCalculatorFacadeTest {
 
     @Test
     public void test_getAllUsers_gives_correct_list(){
-        User owner=new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
+        Owner owner=new Owner("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
-        List<User> users = facade.getAllUsers();
+        List<Owner> users = facade.getAllUsers();
         assertTrue(users.size()==2);
     }
 
     @Test
     public void test_getUserByEmail_gives_correct_user(){
-        User owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
+        Owner owner = new Owner("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
-        User vergelijk = facade.getUserByEmail("arne.adriaenssens@email.be");
+        Owner vergelijk = facade.getUserByEmail("arne.adriaenssens@email.be");
         assertTrue(vergelijk.equals(owner));
     }
 
     @Test
     public void test_addUser_adds_valid_user(){
-        User owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
+        Owner owner = new Owner("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         assertTrue(facade.getAllUsers().contains(owner));
     }
 
     @Test
     public void test_deleteUser_works_correct(){
-        User owner = new User("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
+        Owner owner = new Owner("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         facade.addUser(owner);
         facade.deleteUser("arne.adriaenssens@email.be");
         assertFalse(facade.getAllUsers().contains(owner));

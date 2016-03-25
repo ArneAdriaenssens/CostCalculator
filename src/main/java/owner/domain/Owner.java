@@ -1,4 +1,4 @@
-package user.domain;
+package owner.domain;
 
 
 import cost.domain.Cost;
@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Arne on 10/02/2016.
  */
-public class User implements Serializable{
+public class Owner implements Serializable{
 
     private String firstName;
     private String lastName;
@@ -21,19 +21,19 @@ public class User implements Serializable{
     private String password;
     private List<Cost> costs;
 
-    public User(){
+    public Owner(){
         this.costs = new ArrayList<>();
     }
     
-    public User(String firstName, String lastName, String email, String password){
+    public Owner(String firstName, String lastName, String email, String password){
         this(firstName, lastName, email, password, Role.USER);
     }
 
-    public User(String firstName, String lastName, String email, String password, Role role){
+    public Owner(String firstName, String lastName, String email, String password, Role role){
         this(firstName, lastName, email, password, role, new ArrayList<>());
     }
 
-    public User(String firstName, String lastName, String email, String password, Role role, List<Cost> costs){
+    public Owner(String firstName, String lastName, String email, String password, Role role, List<Cost> costs){
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
@@ -71,28 +71,23 @@ public class User implements Serializable{
     }
 
     public void setRole(Role role) {
-        if (role == null) throw new IllegalArgumentException("Role can't be empty");
         this.role = role;
     }
 
     public void setPassword(String password) {
-        if (password == null || password.equals("")) throw new IllegalArgumentException("Password can't be emtpy");
         this.password=password;
     }
 
-    public void setFirstName(String firstName) throws IllegalArgumentException {
-        if (firstName == null || firstName.equals("")) throw new IllegalArgumentException("First name can't be empty");
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public void setLastName(String lastName) throws IllegalArgumentException {
-        if (lastName == null || lastName.equals("")) throw new IllegalArgumentException("Last name can't be empty");
+    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public void setEmail(String email) throws IllegalArgumentException {
-        if (email == null || email.equals("")) throw new IllegalArgumentException("Last name can't be empty");
-        if (!isCorrectEmail(email)) throw new IllegalArgumentException("Format for email is wrong!");
+    public void setEmail(String email) {
+        if(!isCorrectEmail(email)) return;
         this.email = email;
     }
 
@@ -109,7 +104,7 @@ public class User implements Serializable{
     }
     
     public void addCosts(Cost cost){
-        if(cost==null) throw new UserException("Cost can't be emtpy");
+        if(cost==null) throw new OwnerException("Cost can't be emtpy");
         this.getCosts().add(cost);
     }
     

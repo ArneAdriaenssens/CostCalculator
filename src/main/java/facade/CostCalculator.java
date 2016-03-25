@@ -7,7 +7,7 @@ package facade;
 
 import cost.domain.Cost;
 import java.util.List;
-import user.domain.User;
+import owner.domain.Owner;
 
 /**
  *
@@ -21,8 +21,8 @@ public interface CostCalculator {
     public Cost getCostById(long id);
     public void updateCost(Cost changedCost);
 
-    public List<User> getAllUsers();
-    public User getUserByEmail(String email);
-    public void addUser(User user);
+    public List<Owner> getAllUsers();
+    public Owner getUserByEmail(String email);
+    public void addUser(Owner user);
     public void deleteUser(String email);
 }

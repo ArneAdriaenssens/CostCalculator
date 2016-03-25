@@ -51,13 +51,9 @@ public class CostRepositoryFake implements CostRepository{
 
     @Override
     public void updateCost(Cost changedCost) {
-        System.out.println(changedCost.getId());
-        System.out.println(changedCost);
-        System.out.println(this.getCosts().get(changedCost.getId()));
         if(this.getCosts().get(changedCost.getId())==null){
             throw new DbCostException("Cost does not exist");
         }
         this.getCosts().replace(changedCost.getId(), changedCost);
-        System.out.println(this.getCosts().get(changedCost.getId()));
     }
 }
