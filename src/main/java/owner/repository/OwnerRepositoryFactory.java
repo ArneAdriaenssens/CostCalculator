@@ -10,7 +10,7 @@ public class OwnerRepositoryFactory {
     public OwnerRepository createUserRepository(RepositoryTypes type) {
         OwnerRepository userRepo = null;
         if(type.equals(RepositoryTypes.FAKE)) userRepo = OwnerRepositoryFake.getInstance();
-        else if (type.equals(RepositoryTypes.DB)) userRepo=new OwnerRepositoryDb();
+        else if (type.equals(RepositoryTypes.DB)) userRepo=new OwnerRepositoryDb("CostCalculatorPU");
         return userRepo;
     }
 }

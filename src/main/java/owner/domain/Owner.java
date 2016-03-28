@@ -8,7 +8,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * Created by Arne on 10/02/2016.
@@ -20,13 +23,16 @@ public class Owner implements Serializable{
     private String lastName;
     @Id
     private String email;
-
-    private Role role;
+    
+    @Enumerated(EnumType.STRING)
+    private Role ownerRole;
     private String password;
+    @OneToMany(mappedBy="owner")
     private List<Cost> costs;
 
     public Owner(){
         this.costs = new ArrayList<>();
+        setRole(Role.USER);
     }
     
     public Owner(String firstName, String lastName, String email, String password){
@@ -55,7 +61,7 @@ public class Owner implements Serializable{
     }
 
     public Role getRole() {
-        return role;
+        return ownerRole;
     }
 
     public String getEmail() {
@@ -77,7 +83,7 @@ public class Owner implements Serializable{
 
     public void setRole(Role role) {
         if(role==null) throw new OwnerException("Role can't be empty");
-        this.role = role;
+        this.ownerRole = role;
     }
 
     public void setPassword(String password) {
@@ -120,4 +126,10 @@ public class Owner implements Serializable{
     public String toString(){
         return "user fName: " + getFirstName() +" lName: " + getLastName() + " email: " + getEmail();
     }
+    
+    public boolean equals(Object o){
+        if(o instanceof Owner) return this.getEmail().equals(((Owner)o).getEmail());
+        return false;
+    }
 }
+

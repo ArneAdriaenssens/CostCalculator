@@ -43,9 +43,9 @@ public class OwnerRepositoryFake implements OwnerRepository{
         this.getUsers().put(user.getEmail(), user);
     }
 
-    public void deleteUser(String email)  {
-        if(email.equals("")) throw new DbOwnerException("Email can't be empty");
-        this.getUsers().remove(email);
+    public void deleteUser(Owner owner)  {
+        if(owner==null) throw new DbOwnerException("Email can't be empty");
+        this.getUsers().remove(owner.getEmail());
     }
 
     @Override
@@ -60,5 +60,10 @@ public class OwnerRepositoryFake implements OwnerRepository{
                 }
             }
         }
+    }
+
+    @Override
+    public void closeConnection() {
+        return;
     }
 }

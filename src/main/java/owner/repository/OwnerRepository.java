@@ -13,6 +13,7 @@ public interface OwnerRepository {
     List<Owner> getAllUsers();
     Owner getUserByEmail(String email);
     void addUser(Owner user);
-    void deleteUser(String email);
+    void deleteUser(Owner owner);
     void updateCost(Cost cost);
+    void closeConnection();
 }

@@ -24,5 +24,5 @@ public interface CostCalculator {
     public List<Owner> getAllUsers();
     public Owner getUserByEmail(String email);
     public void addUser(Owner user);
-    public void deleteUser(String email);
+    public void deleteUser(Owner owner);
 }

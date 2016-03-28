@@ -2,6 +2,9 @@ package cost.domain;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 import owner.domain.Owner;
 
 /**
@@ -11,8 +14,10 @@ import owner.domain.Owner;
 public class Cost extends Identifiable implements Serializable{
 
     private double price;
+    @ManyToOne
     private Owner owner;
     private String location;
+    @Enumerated(EnumType.STRING)
     private Category category;
     private String description;
     
@@ -53,7 +58,7 @@ public class Cost extends Identifiable implements Serializable{
     }
 
     public void setOwner(Owner owner){
-        if(owner==null) throw new CostException("Owner can't be empty");
+        //if(owner==null) throw new CostException("Owner can't be empty");
         this.owner = owner;
     }
 
@@ -76,5 +81,10 @@ public class Cost extends Identifiable implements Serializable{
     @Override
     public String toString() {
         return "cost price: "+getPrice()+" location: "+getLocation()+" category: "+getCategory() +" description: " + getDescription() + " owner name: " + getOwner().getFirstName();
+    }
+    
+    public boolean equals(Object o){
+        if( o instanceof Cost)return(((Cost) o).getId()==this.getId());
+        return false;
     }
 }

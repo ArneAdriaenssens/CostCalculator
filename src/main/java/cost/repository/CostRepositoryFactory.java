@@ -9,7 +9,7 @@ public class CostRepositoryFactory {
 
     public CostRepository createCostRepository(RepositoryTypes type){
         CostRepository costRepository=null;
-        if(type.equals(RepositoryTypes.DB)) costRepository=new CostRepositoryDB("CostCalculatorPU");
+        if(type.equals(RepositoryTypes.DB))costRepository=new CostRepositoryDB("CostCalculatorPU");
         else if(type.equals(RepositoryTypes.FAKE)) costRepository=new CostRepositoryFake();
         return costRepository;
     }
