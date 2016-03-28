@@ -1,11 +1,13 @@
 package cost.domain;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
 import owner.domain.Owner;
 
 /**
  * Created by Arne on 11/02/2016.
  */
+@Entity
 public class Cost extends Identifiable implements Serializable{
 
     private double price;
@@ -46,22 +48,27 @@ public class Cost extends Identifiable implements Serializable{
     }
     
     public void setCategory(Category category) {
+        if(category==null) throw new CostException("Category can't be empty");
         this.category = category;
     }
 
     public void setOwner(Owner owner){
+        if(owner==null) throw new CostException("Owner can't be empty");
         this.owner = owner;
     }
 
     public void setPrice(double price)  {
+        if(price<=0) throw new CostException("Price can't be lower then 0");
         this.price = price;
     }
 
     public void setLocation(String location) {
+        if(location==null||location.equals("")) throw new CostException("Location can't be empty");
         this.location = location;
     }
 
     public void setDescription(String description) {
+        if(description==null||description.equals("")) throw new CostException("Description can't be empty");
         this.description = description;
     }
 

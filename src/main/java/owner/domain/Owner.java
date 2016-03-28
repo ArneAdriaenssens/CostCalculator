@@ -7,14 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * Created by Arne on 10/02/2016.
  */
+@Entity
 public class Owner implements Serializable{
 
     private String firstName;
     private String lastName;
+    @Id
     private String email;
 
     private Role role;
@@ -67,27 +71,32 @@ public class Owner implements Serializable{
     }
 
     public void setCosts(List<Cost> costs) {
+        if(costs==null) this.costs=new ArrayList<>();
         this.costs = costs;
     }
 
     public void setRole(Role role) {
+        if(role==null) throw new OwnerException("Role can't be empty");
         this.role = role;
     }
 
     public void setPassword(String password) {
+        if(password==null||password.equals("")) throw new OwnerException("Password can't be empty");
         this.password=password;
     }
 
     public void setFirstName(String firstName) {
+        if(firstName==null||firstName.equals("")) throw new OwnerException("First name can't be empty");
         this.firstName = firstName;
     }
 
     public void setLastName(String lastName) {
+        if(lastName==null||lastName.equals("")) throw new OwnerException("Last name can't be empty");
         this.lastName = lastName;
     }
 
     public void setEmail(String email) {
-        if(!isCorrectEmail(email)) return;
+        if(email==null||email.equals("")||!isCorrectEmail(email)) throw new OwnerException("Email can't be empty");
         this.email = email;
     }
 

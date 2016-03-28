@@ -56,4 +56,9 @@ public class CostRepositoryFake implements CostRepository{
         }
         this.getCosts().replace(changedCost.getId(), changedCost);
     }
+
+    @Override
+    public void closeConnection() {
+        return;
+    }
 }
