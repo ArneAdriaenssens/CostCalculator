@@ -20,6 +20,7 @@ public interface CostCalculator {
     public void deleteCost(Cost cost);
     public Cost getCostById(long id);
     public void updateCost(Cost changedCost);
+    public List<Cost> getCostsByEmail(String email);
 
     public List<Owner> getAllUsers();
     public Owner getUserByEmail(String email);

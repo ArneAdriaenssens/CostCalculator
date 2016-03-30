@@ -118,4 +118,9 @@ public class CostCalculatorFacade implements CostCalculator{
         costRepository.updateCost(changedCost);
         userRepository.updateCost(changedCost);
     }
+
+    @Override
+    public List<Cost> getCostsByEmail(String email) {
+        return getCostRepository().getCostsByEmail(email);
+    }
 }

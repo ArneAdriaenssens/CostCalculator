@@ -61,9 +61,4 @@ public class OwnerRepositoryFake implements OwnerRepository{
             }
         }
     }
-
-    @Override
-    public void closeConnection() {
-        return;
-    }
 }

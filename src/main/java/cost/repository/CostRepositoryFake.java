@@ -58,7 +58,11 @@ public class CostRepositoryFake implements CostRepository{
     }
 
     @Override
-    public void closeConnection() {
-        return;
+    public List<Cost> getCostsByEmail(String email) {
+        List<Cost> costs = new ArrayList<>();
+        for(Cost current:this.getCosts().values()){
+            if(current.getOwner().getEmail().equals(email)) costs.add(current);
+        }
+        return costs;
     }
 }

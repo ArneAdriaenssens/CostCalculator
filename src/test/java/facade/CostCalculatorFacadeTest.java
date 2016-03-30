@@ -18,10 +18,6 @@ public class CostCalculatorFacadeTest {
     @Before
     public void setUp(){
         facade=new CostCalculatorFacade();
-        Owner owner = new Owner("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
-        Cost cost = new Cost(15.0, "Leuven", owner, Category.FREETIME, "Having fun" );
-        if(!facade.getAllUsers().contains(owner)) facade.addUser(owner);
-        facade.addCost(cost);
     }
 
     @Test
@@ -60,6 +56,15 @@ public class CostCalculatorFacadeTest {
         facade.deleteCost(cost);
         assertFalse(facade.getAllCosts().contains(cost));
     }
+    
+    @Test
+    public void test_get_cost_by_id_gives_correct_cost(){
+        Owner owner = facade.getUserByEmail("arne.adriaenssens@email.be");
+        Cost cost = new Cost(15.0,"Leuven", owner, Category.FREETIME, "Afzien" );
+        facade.addCost(cost);
+        Cost test = facade.getCostById(cost.getId());
+        assertEquals(test, cost);
+    }
 
     @Test
     public void test_getAllUsers_gives_correct_list(){
@@ -77,16 +82,12 @@ public class CostCalculatorFacadeTest {
     @Test
     public void test_addUser_adds_valid_user(){
         Owner owner = new Owner("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
-        Owner test = facade.getUserByEmail("arne.adriaenssens@email.be");
-        System.out.println("test:" + test);
-        System.out.println(owner);
-        System.out.println(test.equals(owner));
         assertTrue(facade.getAllUsers().contains(owner));
     }
 
     @Test
     public void test_deleteUser_works_correct(){
-        int rand = (int) Math.ceil(Math.random()*100);
+        int rand = (int) Math.ceil(Math.random()*1000);
         Owner owner = new Owner("Arne", "Adriaenssens", "jposke"+rand+".adriaenssens@email.be", "123");
         facade.addUser(owner);
         facade.deleteUser(owner);
@@ -95,7 +96,6 @@ public class CostCalculatorFacadeTest {
 
     @After
     public void tearDown(){
-        facade.getCostRepository().closeConnection();
         facade=null;
     }
 }

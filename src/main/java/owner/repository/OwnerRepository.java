@@ -15,5 +15,4 @@ public interface OwnerRepository {
     void addUser(Owner user);
     void deleteUser(Owner owner);
     void updateCost(Cost cost);
-    void closeConnection();
 }

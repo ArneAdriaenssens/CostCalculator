@@ -14,6 +14,6 @@ public interface CostRepository {
     void deleteCost(Cost cost);
     Cost getCostById(long id);
     void updateCost(Cost changedCost);
-    void closeConnection();
+    List<Cost> getCostsByEmail(String email);
 
 }

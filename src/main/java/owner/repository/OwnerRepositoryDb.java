@@ -4,7 +4,6 @@ import cost.domain.Cost;
 import owner.domain.Owner;
 
 import java.util.List;
-import javax.annotation.PreDestroy;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -12,44 +11,46 @@ import javax.persistence.Query;
 
 public class OwnerRepositoryDb implements OwnerRepository {
 
-    private EntityManagerFactory managerFactory;
-    private EntityManager manager;
+    private final String name;
 
     public OwnerRepositoryDb(String name) {
-        if (managerFactory != null) {
-            this.closeConnection();
-        }
-        managerFactory = Persistence.createEntityManagerFactory(name);
-        manager = managerFactory.createEntityManager();
-    }
-
-    @PreDestroy
-    public void destruct() {
-        System.out.println("ZJRIFJGETIJBITFJBMKITNGETHI¨GQER¨?TLFG?");
-        managerFactory.close();
+        this.name=name;
     }
 
     @Override
     public List<Owner> getAllUsers() {
+        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory(name);
+        EntityManager manager = managerFactory.createEntityManager();
         try {
+            manager.getTransaction().begin();
             Query query = manager.createQuery("select s from Owner s");
-            return query.getResultList();
+            List<Owner> owners = query.getResultList();
+            manager.close();
+            return owners;
         } catch (Exception e) {
+            managerFactory.close();
+            manager.close();
             throw new DbOwnerException("Something went wrong when getting all users");
         }
     }
 
     @Override
     public Owner getUserByEmail(String email) {
+        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory(name);
+        EntityManager manager = managerFactory.createEntityManager();
         try {
-            manager.getTransaction().begin();
             if (email == null || email.equals("")) {
                 throw new IllegalArgumentException();
             }
+            manager.getTransaction().begin();
             Owner owner = manager.find(owner.domain.Owner.class, email);
+            manager.getTransaction().commit();
+            manager.close();
             return owner;
         } catch (Exception e) {
             manager.getTransaction().rollback();
+            managerFactory.close();
+            manager.close();
             System.out.println(e);
             throw new DbOwnerException("Something went wrong when retrieving a user");
         }
@@ -57,6 +58,8 @@ public class OwnerRepositoryDb implements OwnerRepository {
 
     @Override
     public void addUser(Owner user) {
+        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory(name);
+        EntityManager manager = managerFactory.createEntityManager();
         try {
             manager.getTransaction().begin();
             if (user == null) {
@@ -65,8 +68,11 @@ public class OwnerRepositoryDb implements OwnerRepository {
             manager.persist(user);
             manager.flush();
             manager.getTransaction().commit();
+            manager.close();
         } catch (Exception e) {
             manager.getTransaction().rollback();
+            managerFactory.close();
+            manager.close();
             System.out.println(e.getMessage());
             throw new DbOwnerException("Something went wrong when adding a user");
         }
@@ -74,22 +80,29 @@ public class OwnerRepositoryDb implements OwnerRepository {
 
     @Override
     public void deleteUser(Owner owner) {
+        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory(name);
+        EntityManager manager = managerFactory.createEntityManager();
         try {
             manager.getTransaction().begin();
             if (owner == null) {
                 throw new IllegalArgumentException();
             }
+            owner = manager.find(Owner.class, owner.getEmail());
             manager.remove(owner);
-            manager.flush();
             manager.getTransaction().commit();
+            manager.close();
         } catch (Exception e) {
             manager.getTransaction().rollback();
+            managerFactory.close();
+            manager.close();
             throw new DbOwnerException("Something went wrong when deleting a user");
         }
     }
 
     @Override
     public void updateCost(Cost cost) {
+        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory(name);
+        EntityManager manager = managerFactory.createEntityManager();
         try {
             manager.getTransaction().begin();
             if (cost == null) {
@@ -102,19 +115,13 @@ public class OwnerRepositoryDb implements OwnerRepository {
             }
             manager.flush();
             manager.getTransaction().commit();
+            managerFactory.close();
+            manager.close();
         } catch (Exception e) {
             manager.getTransaction().rollback();
-            throw new DbOwnerException("Something went wrong when updating a user");
-        }
-    }
-
-    @Override
-    public void closeConnection() {
-        try {
-            manager.close();
             managerFactory.close();
-        } catch (Exception e) {
-            throw new DbOwnerException(e.getMessage());
+            manager.close();
+            throw new DbOwnerException("Something went wrong when updating a cost");
         }
     }
 }

@@ -13,7 +13,7 @@ import owner.domain.Owner;
 @Entity
 public class Cost extends Identifiable implements Serializable{
 
-    private double price;
+    private Double price;
     @ManyToOne
     private Owner owner;
     private String location;
@@ -36,7 +36,7 @@ public class Cost extends Identifiable implements Serializable{
         return category;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
@@ -58,11 +58,11 @@ public class Cost extends Identifiable implements Serializable{
     }
 
     public void setOwner(Owner owner){
-        //if(owner==null) throw new CostException("Owner can't be empty");
+        if(owner==null) throw new CostException("Owner can't be empty");
         this.owner = owner;
     }
 
-    public void setPrice(double price)  {
+    public void setPrice(Double price)  {
         if(price<=0) throw new CostException("Price can't be lower then 0");
         this.price = price;
     }
