@@ -52,6 +52,7 @@ public class CostRepositoryDB implements CostRepository {
             manager.persist(cost);
             manager.flush();
             manager.getTransaction().commit();
+            cost.getOwner().addCosts(cost);
         } catch (Exception e) {
             manager.getTransaction().rollback();
             System.out.println(e.getMessage());
