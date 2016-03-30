@@ -36,7 +36,7 @@ public class CostRepositoryDB implements CostRepository {
             return costs;
         } catch (Exception e) {
             throw new DbCostException("Something went wrong when getting all costs");
-        } finally{
+        } finally {
             closeConnection();
         }
     }
@@ -56,7 +56,7 @@ public class CostRepositoryDB implements CostRepository {
             manager.getTransaction().rollback();
             System.out.println(e.getMessage());
             throw new DbCostException("Something went wrong when adding a cost");
-        } finally{
+        } finally {
             closeConnection();
         }
     }
@@ -76,7 +76,7 @@ public class CostRepositoryDB implements CostRepository {
             manager.getTransaction().rollback();
             System.out.println(e.getMessage());
             throw new DbCostException("Something went wrong when deleting a cost");
-        } finally{
+        } finally {
             closeConnection();
         }
     }
@@ -92,7 +92,7 @@ public class CostRepositoryDB implements CostRepository {
         } catch (Exception e) {
             manager.getTransaction().rollback();
             throw new DbCostException("Something went wrong when retreiving a cost");
-        } finally{
+        } finally {
             closeConnection();
         }
     }
@@ -109,7 +109,7 @@ public class CostRepositoryDB implements CostRepository {
         } catch (Exception e) {
             manager.getTransaction().rollback();
             throw new DbCostException("Something went wrong when updating a cost");
-        } finally{
+        } finally {
             closeConnection();
         }
     }
@@ -125,17 +125,32 @@ public class CostRepositoryDB implements CostRepository {
             return costs;
         } catch (Exception e) {
             throw new DbCostException("Something went wrong when showing all cost");
-        } finally{
+        } finally {
             closeConnection();
         }
     }
-    
-    public void openConnection(){
+
+    @Override
+    public int calculateAmountOfCostsForUser(String email) {
+        return this.getCostsByEmail(email).size();
+    }
+
+    @Override
+    public double calculateTotalPriceForUser(String email) {
+        List<Cost> allCosts = this.getCostsByEmail(email);
+        double total = 0;
+        for(Cost current:allCosts){
+            total+=current.getPrice();
+        }
+        return total;
+    }
+
+    public void openConnection() {
         managerFactory = Persistence.createEntityManagerFactory(name);
         manager = managerFactory.createEntityManager();
     }
-    
-    public void closeConnection(){
+
+    public void closeConnection() {
         manager.close();
         managerFactory.close();
     }

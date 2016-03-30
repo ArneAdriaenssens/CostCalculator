@@ -5,11 +5,15 @@ import cost.repository.CostRepository;
 import cost.repository.DbCostException;
 import cost.repository.CostRepositoryFactory;
 import common.RepositoryTypes;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import owner.repository.OwnerRepositoryFactory;
 import owner.domain.Owner;
 import owner.repository.DbOwnerException;
 
 import java.util.List;
+import java.util.Properties;
 import owner.repository.OwnerRepository;
 
 /**
@@ -19,9 +23,10 @@ public class CostCalculatorFacade implements CostCalculator{
 
     private final CostRepository costRepository;
     private final OwnerRepository userRepository;
-    private final RepositoryTypes type=RepositoryTypes.DB;
+    private RepositoryTypes type;
     
     public CostCalculatorFacade(){
+        loadProperties();
         this.costRepository=new CostRepositoryFactory().createCostRepository(type);
         this.userRepository=new OwnerRepositoryFactory().createUserRepository(type);
     }
@@ -121,5 +126,37 @@ public class CostCalculatorFacade implements CostCalculator{
     @Override
     public List<Cost> getCostsByEmail(String email) {
         return getCostRepository().getCostsByEmail(email);
+    }
+
+    @Override
+    public int calculateAmountOfCostsForUser(String email) {
+        return this.getCostRepository().calculateAmountOfCostsForUser(email);
+    }
+
+    @Override
+    public double calculateTotalPriceForUser(String email) {
+        return this.getCostRepository().calculateTotalPriceForUser(email);
+    }
+
+    private void loadProperties() {
+        Properties prop = new Properties();
+	InputStream input = null;
+        try {
+		input = new FileInputStream("config.properties");
+		prop.load(input);
+                String saveType = prop.getProperty("type");
+		System.out.println(prop.getProperty("type"));
+                this.type = RepositoryTypes.valueOf(saveType);
+	} catch (IOException ex) {
+		ex.printStackTrace();
+	} finally {
+		if (input != null) {
+			try {
+				input.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
     }
 }

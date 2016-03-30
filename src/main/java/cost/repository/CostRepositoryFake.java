@@ -65,4 +65,20 @@ public class CostRepositoryFake implements CostRepository{
         }
         return costs;
     }
+    
+    @Override
+    public int calculateAmountOfCostsForUser(String email) {
+        return this.getCostsByEmail(email).size();
+    }
+
+    @Override
+    public double calculateTotalPriceForUser(String email) {
+        List<Cost> allCosts = this.getCostsByEmail(email);
+        double total = 0;
+        for(Cost current:allCosts){
+            total+=current.getPrice();
+        }
+        return total;
+    }
+    
 }

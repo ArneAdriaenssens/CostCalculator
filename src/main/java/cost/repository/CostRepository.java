@@ -15,5 +15,7 @@ public interface CostRepository {
     Cost getCostById(long id);
     void updateCost(Cost changedCost);
     List<Cost> getCostsByEmail(String email);
+    int calculateAmountOfCostsForUser(String email);
+    double calculateTotalPriceForUser(String email);
 
 }

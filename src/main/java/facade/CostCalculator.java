@@ -21,6 +21,8 @@ public interface CostCalculator {
     public Cost getCostById(long id);
     public void updateCost(Cost changedCost);
     public List<Cost> getCostsByEmail(String email);
+    public int calculateAmountOfCostsForUser(String email);
+    public double calculateTotalPriceForUser(String email);
 
     public List<Owner> getAllUsers();
     public Owner getUserByEmail(String email);
