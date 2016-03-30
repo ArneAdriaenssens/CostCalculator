@@ -116,7 +116,6 @@ public class CostCalculatorFacade implements CostCalculator{
     @Override
     public void updateCost(Cost changedCost) {
         costRepository.updateCost(changedCost);
-        userRepository.updateCost(changedCost);
     }
 
     @Override

@@ -19,6 +19,8 @@ import javax.persistence.Query;
 public class CostRepositoryDB implements CostRepository {
 
     private final String name;
+    private EntityManagerFactory managerFactory;
+    private EntityManager manager;
 
     public CostRepositoryDB(String name) {
         this.name = name;
@@ -26,26 +28,22 @@ public class CostRepositoryDB implements CostRepository {
 
     @Override
     public List<Cost> getAllCosts() {
-        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory(name);
-        EntityManager manager = managerFactory.createEntityManager();
+        this.openConnection();
         try {
             manager.getTransaction().begin();
             Query query = manager.createQuery("select s from Cost s");
             List<Cost> costs = query.getResultList();
-            manager.close();
-            managerFactory.close();
             return costs;
         } catch (Exception e) {
-            manager.close();
-            managerFactory.close();
             throw new DbCostException("Something went wrong when getting all costs");
+        } finally{
+            closeConnection();
         }
     }
 
     @Override
     public void addCost(Cost cost) {
-        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory(name);
-        EntityManager manager = managerFactory.createEntityManager();
+        this.openConnection();
         try {
             if (cost == null) {
                 throw new IllegalArgumentException();
@@ -54,96 +52,92 @@ public class CostRepositoryDB implements CostRepository {
             manager.persist(cost);
             manager.flush();
             manager.getTransaction().commit();
-            manager.close();
-            managerFactory.close();
         } catch (Exception e) {
             manager.getTransaction().rollback();
-            manager.close();
-            managerFactory.close();
             System.out.println(e.getMessage());
             throw new DbCostException("Something went wrong when adding a cost");
+        } finally{
+            closeConnection();
         }
     }
 
     @Override
     public void deleteCost(Cost cost) {
-        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory(name);
-        EntityManager manager = managerFactory.createEntityManager();
         try {
             if (cost == null || !this.getAllCosts().contains(cost)) {
                 throw new IllegalArgumentException();
             }
+            this.openConnection();
             manager.getTransaction().begin();
             cost = manager.find(Cost.class, cost.getId());
             manager.remove(cost);
             manager.getTransaction().commit();
-            manager.close();
-            managerFactory.close();
         } catch (Exception e) {
             manager.getTransaction().rollback();
-            manager.close();
-            managerFactory.close();
             System.out.println(e.getMessage());
             throw new DbCostException("Something went wrong when deleting a cost");
+        } finally{
+            closeConnection();
         }
     }
 
     @Override
     public Cost getCostById(long id) {
-        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory(name);
-        EntityManager manager = managerFactory.createEntityManager();
+        this.openConnection();
         try {
             manager.getTransaction().begin();
             Cost cost = manager.find(cost.domain.Cost.class, id);
             manager.getTransaction().commit();
-            manager.close();
-            managerFactory.close();
             return cost;
         } catch (Exception e) {
             manager.getTransaction().rollback();
-            manager.close();
-            managerFactory.close();
             throw new DbCostException("Something went wrong when retreiving a cost");
+        } finally{
+            closeConnection();
         }
     }
 
     @Override
     public void updateCost(Cost changedCost) {
-        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory(name);
-        EntityManager manager = managerFactory.createEntityManager();
+        this.openConnection();
         try {
             manager.getTransaction().begin();
             Cost cost = this.getCostById(changedCost.getId());
             cost = changedCost;
             manager.flush();
             manager.getTransaction().commit();
-            manager.close();
-            managerFactory.close();
         } catch (Exception e) {
             manager.getTransaction().rollback();
-            manager.close();
-            managerFactory.close();
             throw new DbCostException("Something went wrong when updating a cost");
+        } finally{
+            closeConnection();
         }
     }
 
     @Override
     public List<Cost> getCostsByEmail(String email) {
-        EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory(name);
-        EntityManager manager = managerFactory.createEntityManager();
+        this.openConnection();
         try {
             manager.getTransaction().begin();
             Query query = manager.createQuery("select s from Cost s where s.owner.email=:mail");
             query.setParameter("mail", email);
             List<Cost> costs = query.getResultList();
-            manager.close();
-            managerFactory.close();
             return costs;
         } catch (Exception e) {
-            manager.close();
-            managerFactory.close();
             throw new DbCostException("Something went wrong when showing all cost");
+        } finally{
+            closeConnection();
         }
+    }
+    
+    public void openConnection(){
+        managerFactory = Persistence.createEntityManagerFactory(name);
+        manager = managerFactory.createEntityManager();
+    }
+    
+    public void closeConnection(){
+        manager.close();
+        managerFactory.close();
     }
 
 }
