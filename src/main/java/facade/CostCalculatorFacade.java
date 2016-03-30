@@ -19,16 +19,16 @@ import owner.repository.OwnerRepository;
 /**
  * Created by Arne on 11/02/2016.
  */
-public class CostCalculatorFacade implements CostCalculator{
+public class CostCalculatorFacade implements CostCalculator {
 
     private final CostRepository costRepository;
     private final OwnerRepository userRepository;
     private RepositoryTypes type;
-    
-    public CostCalculatorFacade(){
+
+    public CostCalculatorFacade() {
         loadProperties();
-        this.costRepository=new CostRepositoryFactory().createCostRepository(type);
-        this.userRepository=new OwnerRepositoryFactory().createUserRepository(type);
+        this.costRepository = new CostRepositoryFactory().createCostRepository(type);
+        this.userRepository = new OwnerRepositoryFactory().createUserRepository(type);
     }
 
     public CostRepository getCostRepository() {
@@ -41,17 +41,17 @@ public class CostCalculatorFacade implements CostCalculator{
 
     @Override
     public List<Cost> getAllCosts() {
-        List<Cost> returnList=null;
+        List<Cost> returnList = null;
         try {
-            returnList= this.getCostRepository().getAllCosts();
+            returnList = this.getCostRepository().getAllCosts();
         } catch (DbCostException e) {
             System.out.println(e.getMessage());
         }
         return returnList;
     }
-    
+
     @Override
-    public void addCost(Cost cost){
+    public void addCost(Cost cost) {
         try {
             this.getCostRepository().addCost(cost);
             Owner owner = cost.getOwner();
@@ -60,9 +60,9 @@ public class CostCalculatorFacade implements CostCalculator{
             System.out.println(e.getMessage());
         }
     }
-    
+
     @Override
-    public void deleteCost(Cost cost){
+    public void deleteCost(Cost cost) {
         try {
             this.getCostRepository().deleteCost(cost);
         } catch (DbCostException e) {
@@ -71,8 +71,8 @@ public class CostCalculatorFacade implements CostCalculator{
     }
 
     @Override
-    public List<Owner> getAllUsers(){
-        List<Owner> userReturn=null;
+    public List<Owner> getAllUsers() {
+        List<Owner> userReturn = null;
         try {
             userReturn = this.getUserRepository().getAllUsers();
         } catch (DbOwnerException e) {
@@ -82,19 +82,19 @@ public class CostCalculatorFacade implements CostCalculator{
     }
 
     @Override
-    public Owner getUserByEmail(String email){
-        Owner user =null;
+    public Owner getUserByEmail(String email) {
+        Owner user = null;
         try {
-            user= this.getUserRepository().getUserByEmail(email);
+            user = this.getUserRepository().getUserByEmail(email);
         } catch (DbOwnerException e) {
             System.out.println("Something went wrong");
             System.out.println(e);
         }
         return user;
     }
-    
+
     @Override
-    public void addUser(Owner user){
+    public void addUser(Owner user) {
         try {
             this.getUserRepository().addUser(user);
         } catch (DbOwnerException e) {
@@ -104,7 +104,7 @@ public class CostCalculatorFacade implements CostCalculator{
     }
 
     @Override
-    public void deleteUser(Owner owner){
+    public void deleteUser(Owner owner) {
         try {
             this.getUserRepository().deleteUser(owner);
         } catch (DbOwnerException e) {
@@ -140,23 +140,22 @@ public class CostCalculatorFacade implements CostCalculator{
 
     private void loadProperties() {
         Properties prop = new Properties();
-	InputStream input = null;
+        InputStream input = null;
         try {
-		input = new FileInputStream("config.properties");
-		prop.load(input);
-                String saveType = prop.getProperty("type");
-		System.out.println(prop.getProperty("type"));
-                this.type = RepositoryTypes.valueOf(saveType);
-	} catch (IOException ex) {
-		ex.printStackTrace();
-	} finally {
-		if (input != null) {
-			try {
-				input.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+            input = new FileInputStream("config.properties");
+            prop.load(input);
+            String saveType = prop.getProperty("type");
+            this.type = RepositoryTypes.valueOf(saveType);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
