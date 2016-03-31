@@ -139,7 +139,7 @@ public class CostCalculatorFacade implements CostCalculator {
     }
 
     private void loadProperties() {
-        Properties prop = new Properties();
+        /*Properties prop = new Properties();
         InputStream input = null;
         try {
             input = new FileInputStream("config.properties");
@@ -156,6 +156,7 @@ public class CostCalculatorFacade implements CostCalculator {
                     e.printStackTrace();
                 }
             }
-        }
+        }*/
+        this.type=RepositoryTypes.FAKE;
     }
 }
