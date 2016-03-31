@@ -18,7 +18,7 @@ public class CostCalculatorFacadeTest {
 
     @Before
     public void setUp(){
-        facade=new CostCalculatorFacade(RepositoryTypes.FAKE);
+        facade=new CostCalculatorFacade();
         Owner owner=new Owner("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
         if(facade.getUserByEmail("arne.adriaenssens@email.be")==null) facade.addUser(owner);
     }

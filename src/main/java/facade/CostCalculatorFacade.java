@@ -5,15 +5,11 @@ import cost.repository.CostRepository;
 import cost.repository.DbCostException;
 import cost.repository.CostRepositoryFactory;
 import common.RepositoryTypes;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import owner.repository.OwnerRepositoryFactory;
 import owner.domain.Owner;
 import owner.repository.DbOwnerException;
 
 import java.util.List;
-import java.util.Properties;
 import owner.repository.OwnerRepository;
 
 /**
@@ -25,8 +21,8 @@ public class CostCalculatorFacade implements CostCalculator {
     private final OwnerRepository userRepository;
     private final RepositoryTypes type;
 
-    public CostCalculatorFacade(RepositoryTypes type) {
-        this.type=type;
+    public CostCalculatorFacade() {
+        this.type=RepositoryTypes.DB;
         this.costRepository = new CostRepositoryFactory().createCostRepository(type);
         this.userRepository = new OwnerRepositoryFactory().createUserRepository(type);
     }
