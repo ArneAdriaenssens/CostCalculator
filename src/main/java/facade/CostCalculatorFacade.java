@@ -23,10 +23,10 @@ public class CostCalculatorFacade implements CostCalculator {
 
     private final CostRepository costRepository;
     private final OwnerRepository userRepository;
-    private RepositoryTypes type;
+    private final RepositoryTypes type;
 
-    public CostCalculatorFacade() {
-        loadProperties();
+    public CostCalculatorFacade(RepositoryTypes type) {
+        this.type=type;
         this.costRepository = new CostRepositoryFactory().createCostRepository(type);
         this.userRepository = new OwnerRepositoryFactory().createUserRepository(type);
     }
@@ -157,6 +157,6 @@ public class CostCalculatorFacade implements CostCalculator {
                 }
             }
         }*/
-        this.type=RepositoryTypes.FAKE;
+        //this.type=RepositoryTypes.FAKE;
     }
 }
