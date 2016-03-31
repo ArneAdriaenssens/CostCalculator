@@ -5,7 +5,7 @@
     <class>owner.domain.Owner</class>
     <class>cost.domain.Cost</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/Costcalculator"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/Costcalculator;create=true"/>
       <property name="javax.persistence.jdbc.user" value="app"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
       <property name="javax.persistence.jdbc.password" value="app"/>
