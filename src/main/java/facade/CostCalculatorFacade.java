@@ -21,8 +21,8 @@ public class CostCalculatorFacade implements CostCalculator {
     private OwnerRepository userRepository;
     private RepositoryTypes type;
 
-    public CostCalculatorFacade() {
-        setType(RepositoryTypes.DB);
+    public CostCalculatorFacade(RepositoryTypes type) {
+        setType(type);
         this.costRepository = new CostRepositoryFactory().createCostRepository(type);
         this.userRepository = new OwnerRepositoryFactory().createUserRepository(type);
     }
@@ -148,27 +148,5 @@ public class CostCalculatorFacade implements CostCalculator {
     @Override
     public double calculateTotalPriceForUser(String email) {
         return this.getCostRepository().calculateTotalPriceForUser(email);
-    }
-
-    private void loadProperties() {
-        /*Properties prop = new Properties();
-        InputStream input = null;
-        try {
-            input = new FileInputStream("config.properties");
-            prop.load(input);
-            String saveType = prop.getProperty("type");
-            this.type = RepositoryTypes.valueOf(saveType);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }*/
-        //this.type=RepositoryTypes.FAKE;
     }
 }
