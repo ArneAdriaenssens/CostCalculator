@@ -10,14 +10,11 @@ import owner.domain.Owner;
 import owner.repository.DbOwnerException;
 
 import java.util.List;
-import org.springframework.stereotype.Component;
 import owner.repository.OwnerRepository;
 
 /**
  * Created by Arne on 11/02/2016.
  */
-
-@Component
 public class CostCalculatorFacade implements CostCalculator {
 
     private CostRepository costRepository;
