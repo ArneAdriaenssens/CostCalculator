@@ -22,7 +22,7 @@ public class CostCalculatorFacade implements CostCalculator {
     private final RepositoryTypes type;
 
     public CostCalculatorFacade() {
-        this.type=RepositoryTypes.DB;
+        this.type=RepositoryTypes.FAKE;
         this.costRepository = new CostRepositoryFactory().createCostRepository(type);
         this.userRepository = new OwnerRepositoryFactory().createUserRepository(type);
     }
