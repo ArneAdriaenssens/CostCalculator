@@ -17,12 +17,12 @@ import owner.repository.OwnerRepository;
  */
 public class CostCalculatorFacade implements CostCalculator {
 
-    private final CostRepository costRepository;
-    private final OwnerRepository userRepository;
-    private final RepositoryTypes type;
+    private CostRepository costRepository;
+    private OwnerRepository userRepository;
+    private RepositoryTypes type;
 
     public CostCalculatorFacade() {
-        this.type=RepositoryTypes.FAKE;
+        setType(RepositoryTypes.FAKE);
         this.costRepository = new CostRepositoryFactory().createCostRepository(type);
         this.userRepository = new OwnerRepositoryFactory().createUserRepository(type);
     }
@@ -33,6 +33,22 @@ public class CostCalculatorFacade implements CostCalculator {
 
     public OwnerRepository getUserRepository() {
         return userRepository;
+    }
+    
+    public RepositoryTypes getType(RepositoryTypes type){
+        return type;
+    }
+    
+    public void setType(RepositoryTypes type){
+        this.type = type;
+    }
+    
+    public void setCostRepository(CostRepository cost){
+        this.costRepository=cost;
+    }
+    
+    public void setOwnerRepository(OwnerRepository owner){
+        this.userRepository=owner;
     }
 
     @Override
