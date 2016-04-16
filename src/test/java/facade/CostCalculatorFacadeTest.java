@@ -114,7 +114,7 @@ public class CostCalculatorFacadeTest {
         facade.deleteUser(owner);
         List<Cost> costs = facade.getAllCosts();
         facade.deleteUser(owner1);
-        assertTrue(costs.size()==2);
+        assertTrue(costs.size()==3);
     }
 
     @Test
