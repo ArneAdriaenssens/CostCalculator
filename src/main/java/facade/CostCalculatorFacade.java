@@ -19,10 +19,8 @@ public class CostCalculatorFacade implements CostCalculator {
 
     private CostRepository costRepository;
     private OwnerRepository userRepository;
-    private RepositoryTypes type;
 
     public CostCalculatorFacade(RepositoryTypes type) {
-        setType(type);
         this.costRepository = new CostRepositoryFactory().createCostRepository(type);
         this.userRepository = new OwnerRepositoryFactory().createUserRepository(type);
     }
@@ -33,14 +31,6 @@ public class CostCalculatorFacade implements CostCalculator {
 
     public OwnerRepository getUserRepository() {
         return userRepository;
-    }
-    
-    public RepositoryTypes getType(RepositoryTypes type){
-        return type;
-    }
-    
-    public void setType(RepositoryTypes type){
-        this.type = type;
     }
     
     public void setCostRepository(CostRepository cost){
