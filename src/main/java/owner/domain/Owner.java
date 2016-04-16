@@ -1,22 +1,26 @@
 package owner.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cost.domain.Cost;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 /**
  * Created by Arne on 10/02/2016.
  */
 @Entity
+@CascadeOnDelete
 public class Owner implements Serializable{
 
     private String firstName;
@@ -27,7 +31,9 @@ public class Owner implements Serializable{
     @Enumerated(EnumType.STRING)
     private Role ownerRole;
     private String password;
-    @OneToMany(mappedBy="owner")
+    
+    @OneToMany(mappedBy="owner", orphanRemoval=true, cascade={CascadeType.ALL})
+    @JsonIgnore
     private List<Cost> costs;
 
     public Owner(){

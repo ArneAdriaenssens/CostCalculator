@@ -38,10 +38,10 @@ public class OwnerRepositoryDb implements OwnerRepository {
     public Owner getUserByEmail(String email) {
         openConnection();
         try {
+            manager.getTransaction().begin();
             if (email == null || email.equals("")) {
                 throw new IllegalArgumentException();
             }
-            manager.getTransaction().begin();
             Owner owner = manager.find(owner.domain.Owner.class, email);
             manager.getTransaction().commit();
             return owner;
@@ -80,7 +80,7 @@ public class OwnerRepositoryDb implements OwnerRepository {
         try {
             manager.getTransaction().begin();
             if (owner == null) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("owner is empty");
             }
             owner = manager.find(Owner.class, owner.getEmail());
             manager.remove(owner);

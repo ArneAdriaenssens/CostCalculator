@@ -45,17 +45,16 @@ public class CostRepositoryDB implements CostRepository {
     public void addCost(Cost cost) {
         this.openConnection();
         try {
-            if (cost == null) {
-                throw new IllegalArgumentException();
-            }
             manager.getTransaction().begin();
+            if (cost == null) {
+                throw new IllegalArgumentException("cost is empty");
+            }
             manager.persist(cost);
             manager.flush();
             manager.getTransaction().commit();
             cost.getOwner().addCosts(cost);
         } catch (Exception e) {
             manager.getTransaction().rollback();
-            System.out.println(e.getMessage());
             throw new DbCostException("Something went wrong when adding a cost");
         } finally {
             closeConnection();
@@ -64,12 +63,13 @@ public class CostRepositoryDB implements CostRepository {
 
     @Override
     public void deleteCost(Cost cost) {
+        boolean containsCost = this.getAllCosts().contains(cost);
+        this.openConnection();
         try {
-            if (cost == null || !this.getAllCosts().contains(cost)) {
-                throw new IllegalArgumentException();
-            }
-            this.openConnection();
             manager.getTransaction().begin();
+            if (cost == null || !containsCost) {
+                throw new IllegalArgumentException("Cost is empty or not existing");
+            }
             cost = manager.find(Cost.class, cost.getId());
             manager.remove(cost);
             manager.getTransaction().commit();
@@ -140,8 +140,8 @@ public class CostRepositoryDB implements CostRepository {
     public double calculateTotalPriceForUser(String email) {
         List<Cost> allCosts = this.getCostsByEmail(email);
         double total = 0;
-        for(Cost current:allCosts){
-            total+=current.getPrice();
+        for (Cost current : allCosts) {
+            total += current.getPrice();
         }
         return total;
     }

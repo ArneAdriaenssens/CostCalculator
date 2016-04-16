@@ -15,92 +15,119 @@ import static org.junit.Assert.*;
 public class CostCalculatorFacadeTest {
 
     private CostCalculatorFacade facade;
+    private Owner owner;
+    private Cost cost;
 
     @Before
-    public void setUp(){
-        facade=new CostCalculatorFacade(RepositoryTypes.DB);
-        Owner owner=new Owner("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
-        if(facade.getUserByEmail("arne.adriaenssens@email.be")==null) facade.addUser(owner);
+    public void setUp() {
+        facade = new CostCalculatorFacade(RepositoryTypes.DB);
+        owner = new Owner("Arne", "Adriaenssens", "arne9.adriaenssens@email.be", "123");
+        cost = new Cost(15.0, "Leuven", owner, Category.FREETIME, "Having fun");
     }
 
     @Test
-    public void test_getAllCosts_gives_correct_list(){
-        Owner owner = facade.getUserByEmail("arne.adriaenssens@email.be");
-        Cost cost = new Cost(15.0, "Leuven", owner, Category.FREETIME, "Having fun" );
+    public void test_getAllCosts_gives_correct_list() {
+        facade.addUser(owner);
         facade.addCost(cost);
         List<Cost> costs = facade.getAllCosts();
+        facade.deleteUser(owner);
         assertTrue(!costs.isEmpty());
     }
 
-
     @Test
-    public void test_addCost_adds_valid_cost_toe(){
-        Owner owner = facade.getUserByEmail("arne.adriaenssens@email.be");
-        Cost cost = new Cost(15.0, "Leuven", owner, Category.FREETIME, "Having fun" );
+    public void test_addCost_adds_valid_cost_toe() {
+        facade.addUser(owner);
         facade.addCost(cost);
-        assertTrue(facade.getAllCosts().contains(cost));
+        boolean bevat = facade.getAllCosts().contains(cost);
+        facade.deleteUser(owner);
+        assertTrue(bevat);
     }
 
     @Test
-    public void test_addCost_adds_multiple_valid_cost_toe(){
-        int size=facade.getAllCosts().size();
-        Owner owner = facade.getUserByEmail("arne.adriaenssens@email.be");
-        Cost cost1 = new Cost(15.0, "Leuven", owner, Category.FREETIME, "Plezier maken" );
-        Cost cost2 = new Cost(15.0, "Leuven", owner, Category.DRINKS, "Arne nog eens trakteren" );
+    public void test_addCost_adds_multiple_valid_cost_toe() {
+        facade.addUser(owner);
+        int size = facade.getAllCosts().size();
+        Cost cost1 = new Cost(15.0, "Leuven", owner, Category.FREETIME, "Plezier maken");
+        Cost cost2 = new Cost(15.0, "Leuven", owner, Category.DRINKS, "Arne nog eens trakteren");
         facade.addCost(cost1);
         facade.addCost(cost2);
-        size +=2;
-        assertTrue(size == facade.getAllCosts().size());
+        size += 2;
+        int sizeList = facade.getAllCosts().size();
+        facade.deleteCost(cost1);
+        facade.deleteCost(cost2);
+        facade.deleteUser(owner);
+        assertTrue(size == sizeList);
     }
 
     @Test
-    public void test_deleteCost_deletes_cost(){
-        Owner owner = facade.getUserByEmail("arne.adriaenssens@email.be");
-        Cost cost = new Cost(15.0,"Leuven", owner, Category.FREETIME, "Afzien" );
+    public void test_deleteCost_deletes_cost() {
+        facade.addUser(owner);
         facade.addCost(cost);
-        facade.deleteCost(cost);
+        facade.deleteUser(owner);
         assertFalse(facade.getAllCosts().contains(cost));
     }
-    
+
     @Test
-    public void test_get_cost_by_id_gives_correct_cost(){
-        Owner owner = facade.getUserByEmail("arne.adriaenssens@email.be");
-        Cost cost = new Cost(15.0,"Leuven", owner, Category.FREETIME, "Afzien" );
+    public void test_get_cost_by_id_gives_correct_cost() {
+        facade.addUser(owner);
         facade.addCost(cost);
         Cost test = facade.getCostById(cost.getId());
+        facade.deleteUser(owner);
         assertEquals(test, cost);
     }
 
     @Test
-    public void test_getAllUsers_gives_correct_list(){
+    public void test_getAllUsers_gives_correct_list() {
+        facade.addUser(owner);
         List<Owner> users = facade.getAllUsers();
+        facade.deleteUser(owner);
         assertTrue(!users.isEmpty());
     }
 
     @Test
-    public void test_getUserByEmail_gives_correct_user(){
-        Owner owner = new Owner("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
-        Owner vergelijk = facade.getUserByEmail("arne.adriaenssens@email.be");
+    public void test_getUserByEmail_gives_correct_user() {
+        facade.addUser(owner);
+        Owner vergelijk = facade.getUserByEmail("arne9.adriaenssens@email.be");
+        facade.deleteUser(owner);
         assertTrue(vergelijk.equals(owner));
     }
 
     @Test
-    public void test_addUser_adds_valid_user(){
-        Owner owner = new Owner("Arne", "Adriaenssens", "arne.adriaenssens@email.be", "123");
-        assertTrue(facade.getAllUsers().contains(owner));
+    public void test_addUser_adds_valid_user() {
+        facade.addUser(owner);
+        boolean bevat = facade.getAllUsers().contains(owner);
+        facade.deleteUser(owner);
+        assertTrue(bevat);
+    }
+    
+    @Test
+    public void test_delete_user_deletes_all_costs_of_that_user(){
+        facade.addUser(owner);
+        facade.addCost(cost);
+        int rand = (int) Math.ceil(Math.random() * 1000);
+        Owner owner1 = new Owner("Arne", "Adriaenssens", "jposke" + rand + ".adriaenssens@email.be", "123");
+        Cost cost1 = new Cost(15.0, "Leuven", owner1, Category.FREETIME, "Plezier maken");
+        Cost cost2 = new Cost(15.0, "Leuven", owner1, Category.DRINKS, "Arne nog eens trakteren");
+        facade.addUser(owner1);
+        facade.addCost(cost1);
+        facade.addCost(cost2);
+        facade.deleteUser(owner);
+        List<Cost> costs = facade.getAllCosts();
+        facade.deleteUser(owner1);
+        assertTrue(costs.size()==2);
     }
 
     @Test
-    public void test_deleteUser_works_correct(){
-        int rand = (int) Math.ceil(Math.random()*1000);
-        Owner owner = new Owner("Arne", "Adriaenssens", "jposke"+rand+".adriaenssens@email.be", "123");
-        facade.addUser(owner);
-        facade.deleteUser(owner);
-        assertFalse(facade.getAllUsers().contains(owner));
+    public void test_deleteUser_works_correct() {
+        int rand = (int) Math.ceil(Math.random() * 1000);
+        Owner owner1 = new Owner("Arne", "Adriaenssens", "jposke" + rand + ".adriaenssens@email.be", "123");
+        facade.addUser(owner1);
+        facade.deleteUser(owner1);
+        assertFalse(facade.getAllUsers().contains(owner1));
     }
 
     @After
-    public void tearDown(){
-        facade=null;
+    public void tearDown() {
+        facade = null;
     }
 }

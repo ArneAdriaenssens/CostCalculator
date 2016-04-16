@@ -1,6 +1,8 @@
 package cost.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,6 +17,7 @@ public class Cost extends Identifiable implements Serializable{
 
     private Double price;
     @ManyToOne
+    @JsonIgnore
     private Owner owner;
     private String location;
     @Enumerated(EnumType.STRING)
