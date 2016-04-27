@@ -4,7 +4,6 @@ import common.RepositoryTypes;
 import cost.domain.Category;
 import cost.domain.Cost;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import owner.domain.Owner;
 

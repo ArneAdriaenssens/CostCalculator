@@ -1,6 +1,8 @@
 package cost.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,11 +15,11 @@ import owner.domain.Owner;
  * Created by Arne on 11/02/2016.
  */
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Cost extends Identifiable implements Serializable{
 
     private Double price;
     @ManyToOne
-    @JsonIgnore
     private Owner owner;
     private String location;
     @Enumerated(EnumType.STRING)

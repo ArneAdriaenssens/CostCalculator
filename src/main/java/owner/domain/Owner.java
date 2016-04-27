@@ -1,7 +1,8 @@
 package owner.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import cost.domain.Cost;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
  */
 @Entity
 @CascadeOnDelete
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="email")
 public class Owner implements Serializable{
 
     private String firstName;
@@ -33,7 +35,6 @@ public class Owner implements Serializable{
     private String password;
     
     @OneToMany(mappedBy="owner", orphanRemoval=true, cascade={CascadeType.ALL})
-    @JsonIgnore
     private List<Cost> costs;
 
     public Owner(){

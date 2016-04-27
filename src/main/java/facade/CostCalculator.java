@@ -28,4 +28,8 @@ public interface CostCalculator {
     public Owner getUserByEmail(String email);
     public void addUser(Owner user);
     public void deleteUser(Owner owner);
+    
+    public void retrieveExchanges();
+    public Double getRate(String key);
+    public List<String> getRates();
 }
