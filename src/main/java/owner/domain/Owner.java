@@ -2,6 +2,7 @@ package owner.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import cost.domain.Cost;
 import java.io.Serializable;
@@ -32,6 +33,7 @@ public class Owner implements Serializable{
     
     @Enumerated(EnumType.STRING)
     private Role ownerRole;
+    @JsonIgnore
     private String password;
     
     @OneToMany(mappedBy="owner", orphanRemoval=true, cascade={CascadeType.ALL})
