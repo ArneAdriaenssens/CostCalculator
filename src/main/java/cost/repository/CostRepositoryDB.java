@@ -103,8 +103,11 @@ public class CostRepositoryDB implements CostRepository {
         this.openConnection();
         try {
             manager.getTransaction().begin();
-            Cost cost = this.getCostById(changedCost.getId());
-            cost = changedCost;
+            if(changedCost==null) throw new IllegalArgumentException("Changed cost can't be empty");
+            Cost cost = manager.find(cost.domain.Cost.class, changedCost.getId());
+            cost.setPrice(changedCost.getPrice());
+            cost.setLocation(changedCost.getLocation());
+            cost.setDescription(changedCost.getDescription());
             manager.flush();
             manager.getTransaction().commit();
         } catch (Exception e) {

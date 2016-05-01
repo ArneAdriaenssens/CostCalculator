@@ -1,6 +1,5 @@
 package owner.repository;
 
-import cost.domain.Cost;
 import owner.domain.Owner;
 
 import java.util.List;

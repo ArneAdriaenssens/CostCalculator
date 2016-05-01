@@ -1,7 +1,7 @@
 package owner.domain;
 
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import cost.domain.Cost;
@@ -23,36 +23,36 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
  */
 @Entity
 @CascadeOnDelete
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="email")
-public class Owner implements Serializable{
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "email")
+public class Owner implements Serializable {
 
     private String firstName;
     private String lastName;
     @Id
     private String email;
-    
+
     @Enumerated(EnumType.STRING)
     private Role ownerRole;
     @JsonIgnore
     private String password;
-    
-    @OneToMany(mappedBy="owner", orphanRemoval=true, cascade={CascadeType.ALL})
+
+    @OneToMany(mappedBy = "owner", orphanRemoval = true, cascade = {CascadeType.ALL})
     private List<Cost> costs;
 
-    public Owner(){
+    public Owner() {
         this.costs = new ArrayList<>();
         setRole(Role.USER);
     }
-    
-    public Owner(String firstName, String lastName, String email, String password){
+
+    public Owner(String firstName, String lastName, String email, String password) {
         this(firstName, lastName, email, password, Role.USER);
     }
 
-    public Owner(String firstName, String lastName, String email, String password, Role role){
+    public Owner(String firstName, String lastName, String email, String password, Role role) {
         this(firstName, lastName, email, password, role, new ArrayList<>());
     }
 
-    public Owner(String firstName, String lastName, String email, String password, Role role, List<Cost> costs){
+    public Owner(String firstName, String lastName, String email, String password, Role role, List<Cost> costs) {
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
@@ -64,7 +64,7 @@ public class Owner implements Serializable{
     public List<Cost> getCosts() {
         return costs;
     }
-    
+
     public String getPassword() {
         return password;
     }
@@ -86,32 +86,44 @@ public class Owner implements Serializable{
     }
 
     public void setCosts(List<Cost> costs) {
-        if(costs==null) this.costs=new ArrayList<>();
+        if (costs == null) {
+            this.costs = new ArrayList<>();
+        }
         this.costs = costs;
     }
 
     public void setRole(Role role) {
-        if(role==null) throw new OwnerException("Role can't be empty");
+        if (role == null) {
+            throw new OwnerException("Role can't be empty");
+        }
         this.ownerRole = role;
     }
 
     public void setPassword(String password) {
-        if(password==null||password.equals("")) throw new OwnerException("Password can't be empty");
-        this.password=password;
+        if (password == null || password.equals("")) {
+            throw new OwnerException("Password can't be empty");
+        }
+        this.password = password;
     }
 
     public void setFirstName(String firstName) {
-        if(firstName==null||firstName.equals("")) throw new OwnerException("First name can't be empty");
+        if (firstName == null || firstName.equals("")) {
+            throw new OwnerException("First name can't be empty");
+        }
         this.firstName = firstName;
     }
 
     public void setLastName(String lastName) {
-        if(lastName==null||lastName.equals("")) throw new OwnerException("Last name can't be empty");
+        if (lastName == null || lastName.equals("")) {
+            throw new OwnerException("Last name can't be empty");
+        }
         this.lastName = lastName;
     }
 
     public void setEmail(String email) {
-        if(email==null||email.equals("")||!isCorrectEmail(email)) throw new OwnerException("Email can't be empty");
+        if (email == null || email.equals("") || !isCorrectEmail(email)) {
+            throw new OwnerException("Email can't be empty");
+        }
         this.email = email;
     }
 
@@ -126,19 +138,22 @@ public class Owner implements Serializable{
     public boolean isSamePassword(String password) {
         return password.equals(getPassword());
     }
-    
-    public void addCosts(Cost cost){
-        if(cost==null) throw new OwnerException("Cost can't be emtpy");
+
+    public void addCosts(Cost cost) {
+        if (cost == null) {
+            throw new OwnerException("Cost can't be emtpy");
+        }
         this.getCosts().add(cost);
     }
-    
-    public String toString(){
-        return "user fName: " + getFirstName() +" lName: " + getLastName() + " email: " + getEmail();
+
+    public String toString() {
+        return "user fName: " + getFirstName() + " lName: " + getLastName() + " email: " + getEmail();
     }
-    
-    public boolean equals(Object o){
-        if(o instanceof Owner) return this.getEmail().equals(((Owner)o).getEmail());
+
+    public boolean equals(Object o) {
+        if (o instanceof Owner) {
+            return this.getEmail().equals(((Owner) o).getEmail());
+        }
         return false;
     }
 }
-
