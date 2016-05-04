@@ -11,7 +11,7 @@ import owner.repository.DbOwnerException;
 
 import java.util.List;
 import owner.repository.OwnerRepository;
-import webservice.WebServiceExchangeRate;
+import exchangeservice.WebServiceExchangeRate;
 
 /**
  * Created by Arne on 11/02/2016.
@@ -28,11 +28,11 @@ public class CostCalculatorFacade implements CostCalculator {
         this.exchange = new WebServiceExchangeRate();
     }
 
-    public CostRepository getCostRepository() {
+    private CostRepository getCostRepository() {
         return costRepository;
     }
 
-    public OwnerRepository getUserRepository() {
+    private OwnerRepository getUserRepository() {
         return userRepository;
     }
     
@@ -110,12 +110,8 @@ public class CostCalculatorFacade implements CostCalculator {
 
     @Override
     public void deleteUser(Owner owner) {
-        try {
-            this.getUserRepository().deleteUser(owner);
-        } catch (DbOwnerException e) {
-            System.out.println("Somthing went wrong");
-            System.out.println(e);
-        }
+        this.getUserRepository().deleteUser(owner);
+        
     }
 
     @Override

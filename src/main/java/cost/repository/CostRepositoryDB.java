@@ -108,6 +108,7 @@ public class CostRepositoryDB implements CostRepository {
             cost.setPrice(changedCost.getPrice());
             cost.setLocation(changedCost.getLocation());
             cost.setDescription(changedCost.getDescription());
+            cost.setCategory(changedCost.getCategory());
             manager.flush();
             manager.getTransaction().commit();
         } catch (Exception e) {
