@@ -47,4 +47,13 @@ public class OwnerRepositoryFake implements OwnerRepository{
         if(owner==null) throw new DbOwnerException("Email can't be empty");
         this.getUsers().remove(owner.getEmail());
     }
+
+    @Override
+    public void updateUser(Owner owner) {
+        if(this.getUserByEmail(owner.getEmail())==null) throw new DbOwnerException("User does not exist in DB");
+        this.getUsers().get(owner.getEmail()).setCosts(owner.getCosts());
+        this.getUsers().get(owner.getEmail()).setFirstName(owner.getFirstName());
+        this.getUsers().get(owner.getEmail()).setLastName(owner.getLastName());
+        this.getUsers().get(owner.getEmail()).setPassword(owner.getPassword());
+    }
 }

@@ -14,4 +14,5 @@ public interface OwnerRepository {
     Owner getUserByEmail(String email);
     void addUser(Owner user);
     void deleteUser(Owner owner);
+    void updateUser(Owner owner);
 }

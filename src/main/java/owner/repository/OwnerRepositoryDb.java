@@ -15,7 +15,7 @@ public class OwnerRepositoryDb implements OwnerRepository {
     private EntityManager manager;
 
     public OwnerRepositoryDb(String name) {
-        this.name=name;
+        this.name = name;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class OwnerRepositoryDb implements OwnerRepository {
             return owners;
         } catch (Exception e) {
             throw new DbOwnerException("Something went wrong when getting all users");
-        } finally{
+        } finally {
             closeConnection();
         }
     }
@@ -48,7 +48,7 @@ public class OwnerRepositoryDb implements OwnerRepository {
             manager.getTransaction().rollback();
             System.out.println(e);
             throw new DbOwnerException("Something went wrong when retrieving a user");
-        } finally{
+        } finally {
             closeConnection();
         }
     }
@@ -68,7 +68,7 @@ public class OwnerRepositoryDb implements OwnerRepository {
             manager.getTransaction().rollback();
             System.out.println(e.getMessage());
             throw new DbOwnerException("Something went wrong when adding a user");
-        } finally{
+        } finally {
             closeConnection();
         }
     }
@@ -87,18 +87,41 @@ public class OwnerRepositoryDb implements OwnerRepository {
         } catch (Exception e) {
             manager.getTransaction().rollback();
             throw new DbOwnerException("Something went wrong when deleting a user");
-        } finally{
+        } finally {
             closeConnection();
         }
     }
-    
-    public void openConnection(){
+
+    public void openConnection() {
         managerFactory = Persistence.createEntityManagerFactory(name);
         manager = managerFactory.createEntityManager();
     }
-    
-    public void closeConnection(){
+
+    public void closeConnection() {
         manager.close();
         managerFactory.close();
+    }
+
+    @Override
+    public void updateUser(Owner owner) {
+        this.openConnection();
+        try {
+            manager.getTransaction().begin();
+            if (owner == null) {
+                throw new IllegalArgumentException("Changed cost can't be empty");
+            }
+            Owner old = manager.find(owner.domain.Owner.class, owner.getEmail());
+            old.setCosts(owner.getCosts());
+            old.setFirstName(owner.getFirstName());
+            old.setLastName(owner.getLastName());
+            old.setPassword(owner.getPassword());
+            manager.flush();
+            manager.getTransaction().commit();
+        } catch (Exception e) {
+            manager.getTransaction().rollback();
+            throw new DbOwnerException("Something went wrong when updating an owner");
+        } finally {
+            closeConnection();
+        }
     }
 }

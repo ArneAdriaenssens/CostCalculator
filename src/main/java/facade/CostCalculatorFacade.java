@@ -2,12 +2,10 @@ package facade;
 
 import cost.domain.Cost;
 import cost.repository.CostRepository;
-import cost.repository.DbCostException;
 import cost.repository.CostRepositoryFactory;
 import common.RepositoryTypes;
 import owner.repository.OwnerRepositoryFactory;
 import owner.domain.Owner;
-import owner.repository.DbOwnerException;
 
 import java.util.List;
 import owner.repository.OwnerRepository;
@@ -20,7 +18,7 @@ public class CostCalculatorFacade implements CostCalculator {
 
     private CostRepository costRepository;
     private OwnerRepository userRepository;
-    private WebServiceExchangeRate exchange;
+    private final WebServiceExchangeRate exchange;
 
     public CostCalculatorFacade(RepositoryTypes type) {
         this.costRepository = new CostRepositoryFactory().createCostRepository(type);
@@ -28,90 +26,64 @@ public class CostCalculatorFacade implements CostCalculator {
         this.exchange = new WebServiceExchangeRate();
     }
 
-    private CostRepository getCostRepository() {
-        return costRepository;
+    private void setCostRepository(CostRepository cost) {
+        this.costRepository = cost;
     }
 
-    private OwnerRepository getUserRepository() {
+    private void setOwnerRepository(OwnerRepository owner) {
+        this.userRepository = owner;
+    }
+    
+    private OwnerRepository getUserRepository(){
         return userRepository;
     }
     
-    public void setCostRepository(CostRepository cost){
-        this.costRepository=cost;
-    }
-    
-    public void setOwnerRepository(OwnerRepository owner){
-        this.userRepository=owner;
+     private CostRepository getCostRepository(){
+        return costRepository;
     }
 
     @Override
     public List<Cost> getAllCosts() {
         List<Cost> returnList = null;
-        try {
-            returnList = this.getCostRepository().getAllCosts();
-        } catch (DbCostException e) {
-            System.out.println(e.getMessage());
-        }
+        returnList = this.getCostRepository().getAllCosts();
         return returnList;
     }
 
     @Override
     public void addCost(Cost cost) {
-        try {
-            this.getCostRepository().addCost(cost);
-            Owner owner = cost.getOwner();
-            owner.addCosts(cost);
-        } catch (DbCostException e) {
-            System.out.println(e.getMessage());
-        }
+        this.getCostRepository().addCost(cost);
+        Owner owner = cost.getOwner();
+        owner.addCosts(cost);
     }
 
     @Override
     public void deleteCost(Cost cost) {
-        try {
-            this.getCostRepository().deleteCost(cost);
-        } catch (DbCostException e) {
-            System.out.println(e.getMessage());
-        }
+        this.getCostRepository().deleteCost(cost);
     }
 
     @Override
     public List<Owner> getAllUsers() {
         List<Owner> userReturn = null;
-        try {
-            userReturn = this.getUserRepository().getAllUsers();
-        } catch (DbOwnerException e) {
-            System.out.println("Somthing went wrong");
-        }
+        userReturn = this.getUserRepository().getAllUsers();
         return userReturn;
     }
 
     @Override
     public Owner getUserByEmail(String email) {
         Owner user = null;
-        try {
-            user = this.getUserRepository().getUserByEmail(email);
-        } catch (DbOwnerException e) {
-            System.out.println("Something went wrong");
-            System.out.println(e);
-        }
+        user = this.getUserRepository().getUserByEmail(email);
         return user;
     }
 
     @Override
     public void addUser(Owner user) {
-        try {
-            this.getUserRepository().addUser(user);
-        } catch (DbOwnerException e) {
-            System.out.println(e);
-            System.out.println("Somthing went wrong");
-        }
+        this.getUserRepository().addUser(user);
     }
 
     @Override
     public void deleteUser(Owner owner) {
         this.getUserRepository().deleteUser(owner);
-        
+
     }
 
     @Override
@@ -148,9 +120,14 @@ public class CostCalculatorFacade implements CostCalculator {
     public Double getRate(String key) {
         return exchange.getRate(key);
     }
-    
-    public List<String> getRates(){
+
+    public List<String> getRates() {
         return exchange.getRates();
     }
-    
+
+    @Override
+    public void updateUser(Owner owner) {
+        this.getUserRepository().updateUser(owner);
+    }
+
 }
