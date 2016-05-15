@@ -1,8 +1,8 @@
 package owner.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import cost.domain.Cost;
 import java.io.Serializable;
@@ -33,7 +33,6 @@ public class Owner implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private Role ownerRole;
-    @JsonIgnore
     private String password;
 
     @OneToMany(mappedBy = "owner", orphanRemoval = true, cascade = {CascadeType.ALL})
@@ -65,6 +64,7 @@ public class Owner implements Serializable {
         return costs;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -99,6 +99,7 @@ public class Owner implements Serializable {
         this.ownerRole = role;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         if (password == null || password.equals("")) {
             throw new OwnerException("Password can't be empty");
