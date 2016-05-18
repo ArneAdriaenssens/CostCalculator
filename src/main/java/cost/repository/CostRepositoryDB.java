@@ -147,7 +147,9 @@ public class CostRepositoryDB implements CostRepository {
         for (Cost current : allCosts) {
             total += current.getPrice();
         }
-        return total;
+        total = total*100;
+        total = Math.round(total);
+        return total/100;
     }
 
     public void openConnection() {

@@ -25,14 +25,6 @@ public class CostCalculatorFacade implements CostCalculator {
         this.userRepository = new OwnerRepositoryFactory().createUserRepository(type);
         this.exchange = new WebServiceExchangeRate();
     }
-
-    private void setCostRepository(CostRepository cost) {
-        this.costRepository = cost;
-    }
-
-    private void setOwnerRepository(OwnerRepository owner) {
-        this.userRepository = owner;
-    }
     
     private OwnerRepository getUserRepository(){
         return userRepository;
